@@ -3,11 +3,11 @@ defmodule TwitterWeb.UserControllerTest do
   alias Twitter.Accounts
 
   test "POST /api/user", %{conn: conn} do
-    {:ok, user} = Accounts.create_user(%{name: "Username 1"})
+    user = %{name: "Username 1"}
 
     response =
       conn
-      |> post(Routes.user_path(conn, :create), Map.from_struct(user))
+      |> post(Routes.user_path(conn, :create), user)
       |> json_response(201)
 
     assert response["name"] == user.name

@@ -10,11 +10,12 @@ defmodule TwitterWeb.TweetControllerTest do
   end
 
   test "POST /api/tweet", %{conn: conn} do
-    {tweet, user} = create_tweet(%{message: "Message 1"})
+    {:ok, user} = Accounts.create_user(%{name: "username"})
+    tweet = %{message: "Message 1", creator_id: user.id}
 
     response =
       conn
-      |> post(Routes.tweet_path(conn, :create), Map.from_struct(tweet))
+      |> post(Routes.tweet_path(conn, :create), tweet)
       |> json_response(201)
 
     assert response["message"] == tweet.message
@@ -43,15 +44,10 @@ defmodule TwitterWeb.TweetControllerTest do
   end
 
   test "GET /api/tweet", %{conn: conn} do
-    tweets = [
-      %{message: "Message 1"},
-      %{message: "Message 2"}
-    ]
-
-    [
-      {tweet1, _user1},
-      {tweet2, _user2}
-    ] = Enum.map(tweets, &create_tweet(&1))
+    {:ok, user1} = Accounts.create_user(%{name: "username 1"})
+    {:ok, user2} = Accounts.create_user(%{name: "username 2"})
+    {:ok, tweet1} = Resources.create_tweet(%{message: "Message 1", creator_id: user1.id})
+    {:ok, tweet2} = Resources.create_tweet(%{message: "Message 1", creator_id: user2.id})
 
     response =
       conn
