@@ -19,7 +19,7 @@ defmodule Twitter.ResourcesTest do
         |> Enum.into(Map.merge(@valid_attrs, %{creator_id: user.id}))
         |> Resources.create_tweet()
 
-      tweet
+      Map.merge(tweet, %{creator: user})
     end
 
     test "list_tweets/0 returns all tweets" do

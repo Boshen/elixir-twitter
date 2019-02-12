@@ -26,7 +26,7 @@ defmodule TwitterWeb.TweetController do
       {:ok, tweet} ->
         conn
         |> put_status(:created)
-        |> json(tweet)
+        |> json(Resources.get_tweet!(tweet.id))
 
       {:error, changeset} ->
         conn

@@ -7,6 +7,7 @@ defmodule Twitter.Resources do
   alias Twitter.Repo
 
   alias Twitter.Resources.Tweet
+  alias Twitter.Accounts.User
 
   @doc """
   Returns the list of tweets.
@@ -18,7 +19,13 @@ defmodule Twitter.Resources do
 
   """
   def list_tweets do
-    Repo.all(Tweet)
+    query =
+      from t in Tweet,
+        inner_join: u in User,
+        on: u.id == t.creator_id,
+        select_merge: %{creator: u}
+
+    Repo.all(query)
   end
 
   @doc """
@@ -35,7 +42,19 @@ defmodule Twitter.Resources do
       ** (Ecto.NoResultsError)
 
   """
-  def get_tweet!(id), do: Repo.get!(Tweet, id)
+  def get_tweet!(id) do
+    query =
+      from t in Tweet,
+        where: t.id == ^id,
+        inner_join: u in User,
+        on: u.id == t.creator_id,
+        select_merge: %{creator: u}
+
+    case Repo.all(query) do
+      [tweet] -> tweet
+      [] -> raise Ecto.NoResultsError, queryable: query
+    end
+  end
 
   @doc """
   Creates a tweet.

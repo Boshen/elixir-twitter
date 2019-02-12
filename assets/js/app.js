@@ -56,6 +56,7 @@ const TweetPage = () => {
         {tweets.map((t) => (
           <li key={t.id}>
             <input defaultValue={t.message} onChange={onEdit(t.id)}/>
+            <span>by {t.creator.name}</span>
             <button onClick={onDelete(t.id)}>delete</button>
           </li>
         ))}

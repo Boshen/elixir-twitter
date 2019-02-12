@@ -3,9 +3,11 @@ defmodule Twitter.Resources.Tweet do
   import Ecto.Changeset
   alias Twitter.Accounts.User
 
-  @derive {Jason.Encoder, only: [:id, :message, :inserted_at, :updated_at, :creator_id]}
+  @derive {Jason.Encoder, only: [:id, :message, :inserted_at, :updated_at, :creator_id, :creator]}
   schema "tweets" do
     field :message, :string
+
+    field :creator, :map, virtual: true
     belongs_to :user, User, foreign_key: :creator_id
 
     timestamps()

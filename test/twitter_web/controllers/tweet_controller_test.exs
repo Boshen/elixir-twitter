@@ -5,11 +5,12 @@ defmodule TwitterWeb.TweetControllerTest do
 
   def create_tweet(params = %{}) do
     {:ok, user} = Accounts.create_user(%{name: "username"})
-    Resources.create_tweet(Map.merge(params, %{creator_id: user.id}))
+    {:ok, tweet} = Resources.create_tweet(Map.merge(params, %{creator_id: user.id}))
+    {tweet, user}
   end
 
   test "POST /api/tweet", %{conn: conn} do
-    {:ok, tweet} = create_tweet(%{message: "Message 1"})
+    {tweet, user} = create_tweet(%{message: "Message 1"})
 
     response =
       conn
@@ -17,10 +18,11 @@ defmodule TwitterWeb.TweetControllerTest do
       |> json_response(201)
 
     assert response["message"] == tweet.message
+    assert response["creator"]["name"] == user.name
   end
 
   test "GET /api/tweet/:id", %{conn: conn} do
-    {:ok, tweet} = create_tweet(%{message: "Message 1"})
+    {tweet, user} = create_tweet(%{message: "Message 1"})
 
     response =
       conn
@@ -28,6 +30,7 @@ defmodule TwitterWeb.TweetControllerTest do
       |> json_response(200)
 
     assert response["message"] == tweet.message
+    assert response["creator"]["name"] == user.name
   end
 
   test "GET /api/tweet/:id with 404", %{conn: conn} do
@@ -46,8 +49,8 @@ defmodule TwitterWeb.TweetControllerTest do
     ]
 
     [
-      {:ok, tweet1},
-      {:ok, tweet2}
+      {tweet1, _user1},
+      {tweet2, _user2}
     ] = Enum.map(tweets, &create_tweet(&1))
 
     response =
@@ -66,7 +69,7 @@ defmodule TwitterWeb.TweetControllerTest do
   end
 
   test "PUT /api/tweet/:id", %{conn: conn} do
-    {:ok, tweet} = create_tweet(%{message: "Message 1"})
+    {tweet, _user} = create_tweet(%{message: "Message 1"})
 
     put_data = %{message: "Message 2"}
 
@@ -90,7 +93,7 @@ defmodule TwitterWeb.TweetControllerTest do
   end
 
   test "DELETE /api/tweet/:id", %{conn: conn} do
-    {:ok, tweet} = create_tweet(%{message: "Message 1"})
+    {tweet, _user} = create_tweet(%{message: "Message 1"})
 
     response =
       conn
