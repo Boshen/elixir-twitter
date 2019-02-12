@@ -1,87 +1,45 @@
 defmodule TwitterWeb.TweetController do
   use TwitterWeb, :controller
   alias Twitter.Resources
-  alias TwitterWeb.ErrorHelpers
   alias Twitter.Resources.Tweet
-  alias Ecto.Changeset
+
+  action_fallback TwitterWeb.FallbackController
 
   def index(conn, _params) do
     conn |> json(Resources.list_tweets())
   end
 
   def show(conn, params) do
-    try do
-      tweet = Resources.get_tweet!(params["id"])
+    with {:ok, tweet} <- Resources.get_tweet(params["id"]) do
       conn |> json(tweet)
-    rescue
-      Ecto.NoResultsError ->
-        conn
-        |> put_status(:not_found)
-        |> json(%{errors: ["not found"]})
     end
   end
 
   def create(conn, params) do
-    case Resources.create_tweet(params) do
-      {:ok, tweet} ->
-        conn
-        |> put_status(:created)
-        |> json(Resources.get_tweet!(tweet.id))
-
-      {:error, changeset} ->
-        conn
-        |> put_status(:bad_request)
-        |> json(%{
-          errors: Changeset.traverse_errors(changeset, &ErrorHelpers.translate_error/1)
-        })
+    with {:ok, tweet} <- Resources.create_tweet(params),
+         {:ok, tweet} = Resources.get_tweet(tweet.id) do
+      conn
+      |> put_status(:created)
+      |> json(tweet)
     end
   end
 
   def update(conn, params) do
-    try do
-      {id, data} = Map.pop(params, "id")
-      result = Resources.update_tweet(%Tweet{id: String.to_integer(id)}, data)
+    {id, data} = Map.pop(params, "id")
 
-      case result do
-        {:ok, tweet} ->
-          conn |> json(tweet)
+    tweet = %Tweet{id: String.to_integer(id)}
 
-        {:error, changeset} ->
-          conn
-          |> put_status(:bad_request)
-          |> json(%{
-            errors: Changeset.traverse_errors(changeset, &ErrorHelpers.translate_error/1)
-          })
-      end
-    rescue
-      _ ->
-        conn
-        |> put_status(:bad_request)
-        |> json(%{errors: ["unable to update tweet"]})
+    with {:ok, tweet} <- Resources.update_tweet(tweet, data) do
+      conn |> json(tweet)
     end
   end
 
   def delete(conn, params) do
-    try do
-      result = Resources.delete_tweet(%Tweet{id: String.to_integer(params["id"])})
+    tweet = %Tweet{id: String.to_integer(params["id"])}
 
-      case result do
-        {:ok, tweet} ->
-          conn
-          |> json(tweet)
-
-        {:error, changeset} ->
-          conn
-          |> put_status(:bad_request)
-          |> json(%{
-            errors: Changeset.traverse_errors(changeset, &ErrorHelpers.translate_error/1)
-          })
-      end
-    rescue
-      _ ->
-        conn
-        |> put_status(:bad_request)
-        |> json(%{errors: ["unable to delete tweet"]})
+    with {:ok, tweet} <- Resources.delete_tweet(tweet) do
+      conn
+      |> json(tweet)
     end
   end
 end

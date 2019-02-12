@@ -24,18 +24,23 @@ defmodule Twitter.Accounts do
   @doc """
   Gets a single user.
 
-  Raises `Ecto.NoResultsError` if the User does not exist.
+  Returns `nil` if the User does not exist.
 
   ## Examples
 
-      iex> get_user!(123)
-      %User{}
+      iex> get_user(123)
+      {:ok, %User{}}
 
-      iex> get_user!(456)
-      ** (Ecto.NoResultsError)
+      iex> get_user(456)
+      {:error, nil}
 
   """
-  def get_user!(id), do: Repo.get!(User, id)
+  def get_user(id) do
+    case Repo.get(User, id) do
+      nil -> {:error, nil}
+      user -> {:ok, user}
+    end
+  end
 
   @doc """
   Creates a user.
@@ -70,7 +75,7 @@ defmodule Twitter.Accounts do
   def update_user(%User{} = user, attrs) do
     user
     |> User.changeset(attrs)
-    |> Repo.update()
+    |> Repo.update(stale_error_field: true)
   end
 
   @doc """
@@ -86,7 +91,7 @@ defmodule Twitter.Accounts do
 
   """
   def delete_user(%User{} = user) do
-    Repo.delete(user)
+    Repo.delete(user, stale_error_field: true)
   end
 
   @doc """

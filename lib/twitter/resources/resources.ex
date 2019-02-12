@@ -31,18 +31,18 @@ defmodule Twitter.Resources do
   @doc """
   Gets a single tweet.
 
-  Raises `Ecto.NoResultsError` if the Tweet does not exist.
+  Returns `nil` if the Tweet does not exist.
 
   ## Examples
 
-      iex> get_tweet!(123)
-      %Tweet{}
+      iex> get_tweet(123)
+      {:ok, %Tweet{}}
 
-      iex> get_tweet!(456)
-      ** (Ecto.NoResultsError)
+      iex> get_tweet(456)
+      {:error, %Ecto.Changeset{}}
 
   """
-  def get_tweet!(id) do
+  def get_tweet(id) do
     query =
       from t in Tweet,
         where: t.id == ^id,
@@ -51,8 +51,8 @@ defmodule Twitter.Resources do
         select_merge: %{creator: u}
 
     case Repo.all(query) do
-      [tweet] -> tweet
-      [] -> raise Ecto.NoResultsError, queryable: query
+      [tweet] -> {:ok, tweet}
+      [] -> {:error, nil}
     end
   end
 
@@ -89,7 +89,7 @@ defmodule Twitter.Resources do
   def update_tweet(%Tweet{} = tweet, attrs) do
     tweet
     |> Tweet.changeset(attrs)
-    |> Repo.update()
+    |> Repo.update(stale_error_field: true)
   end
 
   @doc """
@@ -105,7 +105,7 @@ defmodule Twitter.Resources do
 
   """
   def delete_tweet(%Tweet{} = tweet) do
-    Repo.delete(tweet)
+    Repo.delete(tweet, stale_error_field: true)
   end
 
   @doc """
