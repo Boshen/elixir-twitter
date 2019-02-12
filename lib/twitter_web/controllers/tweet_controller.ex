@@ -1,37 +1,79 @@
 defmodule TwitterWeb.TweetController do
   use TwitterWeb, :controller
-  alias Twitter.Repo
-  alias Twitter.Tweet
+  alias Twitter.Resources
+  alias Twitter.Resources.Tweet
 
   def index(conn, _params) do
-    tweets = Repo.all(Twitter.Tweet)
-    json(conn, tweets)
+    conn |> json(Resources.list_tweets())
   end
 
-  def edit(_conn, _params) do
-  end
-
-  def new(_conn, _params) do
-  end
-
-  def show(_conn, _params) do
-  end
-
-  def create(conn, params) do
-    changeset = Tweet.changeset(%Tweet{}, params)
-
-    case Repo.insert(changeset) do
-      {:ok, tweet} ->
-        json(put_status(conn, :created), tweet)
-
-      {:error, _changeset} ->
-        json(put_status(conn, :bad_request), %{errors: ["unable to create tweet"]})
+  def show(conn, params) do
+    try do
+      tweet = Resources.get_tweet!(params["id"])
+      conn |> json(tweet)
+    rescue
+      Ecto.NoResultsError ->
+        conn
+        |> put_status(:not_found)
+        |> json(%{errors: ["not found"]})
     end
   end
 
-  def update(_conn, _params) do
+  def create(conn, params) do
+    case Resources.create_tweet(params) do
+      {:ok, tweet} ->
+        conn
+        |> put_status(:created)
+        |> json(tweet)
+
+      {:error, _changeset} ->
+        conn
+        |> put_status(:bad_request)
+        |> json(%{errors: ["unable to create tweet"]})
+    end
   end
 
-  def delete(_conn, _params) do
+  def update(conn, params) do
+    try do
+      {id, data} = Map.pop(params, "id")
+      result = Resources.update_tweet(%Tweet{id: String.to_integer(id)}, data)
+
+      case result do
+        {:ok, tweet} ->
+          conn |> json(tweet)
+
+        {:error, changeset} ->
+          conn
+          |> put_status(:bad_request)
+          |> json(changeset)
+      end
+    rescue
+      _ ->
+        conn
+        |> put_status(:bad_request)
+        |> json(%{errors: ["unable to update tweet"]})
+    end
+  end
+
+  def delete(conn, params) do
+    try do
+      result = Resources.delete_tweet(%Tweet{id: String.to_integer(params["id"])})
+
+      case result do
+        {:ok, tweet} ->
+          conn
+          |> json(tweet)
+
+        {:error, changeset} ->
+          conn
+          |> put_status(:bad_request)
+          |> json(changeset)
+      end
+    rescue
+      _ ->
+        conn
+        |> put_status(:bad_request)
+        |> json(%{errors: ["unable to delete tweet"]})
+    end
   end
 end

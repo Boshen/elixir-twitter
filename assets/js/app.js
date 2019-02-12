@@ -11,20 +11,30 @@ const App = () => {
   const inputEl = useRef(null)
 
   useEffect(() => {
-    if (tweets.length > 0) {
-      return
-    }
-    axios.get('/api/tweet')
-      .then((res) => {
-        setTweets(res.data)
-      })
-    return () => { }
-  }, [tweets])
+    axios.get('/api/tweet').then((res) => setTweets(res.data))
+    return
+  }, [])
 
   const onSubmit = (e) => {
     e.preventDefault()
     axios.post('/api/tweet', {
       message: inputEl.current.value
+    })
+      .then((response) => {
+        setTweets(tweets.concat(response.data))
+      })
+  }
+
+  const onDelete = (id) => () => {
+    axios.delete('/api/tweet/' + id)
+      .then(() => {
+        setTweets(tweets.filter((t) => t.id !== id))
+      })
+  }
+
+  const onEdit = (id) => (e) => {
+    axios.patch('/api/tweet/' + id, {
+      message: e.currentTarget.value
     })
   }
 
@@ -41,7 +51,10 @@ const App = () => {
       </form>
       <ul>
         {tweets.map((t) => (
-          <li key={t.id}>{ t.message }</li>
+          <li key={t.id}>
+            <input defaultValue={t.message} onChange={onEdit(t.id)}/>
+            <button onClick={onDelete(t.id)}>delete</button>
+          </li>
         ))}
       </ul>
     </div>

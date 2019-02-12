@@ -23,6 +23,6 @@ defmodule TwitterWeb.Router do
   scope "/api", TwitterWeb do
     pipe_through :api
 
-    resources "/tweet", TweetController
+    resources "/tweet", TweetController, except: [:new, :edit]
   end
 end
