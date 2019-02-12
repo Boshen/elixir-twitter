@@ -51,7 +51,7 @@ defmodule Twitter.Resources do
   """
   def create_tweet(attrs \\ %{}) do
     %Tweet{}
-    |> Tweet.changeset(attrs)
+    |> Tweet.check_insert(attrs)
     |> Repo.insert()
   end
 

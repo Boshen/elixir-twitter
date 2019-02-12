@@ -1,29 +1,33 @@
 defmodule TwitterWeb.TweetControllerTest do
   use TwitterWeb.ConnCase
   alias Twitter.Resources
+  alias Twitter.Accounts
+
+  def create_tweet(params = %{}) do
+    {:ok, user} = Accounts.create_user(%{name: "username"})
+    Resources.create_tweet(Map.merge(params, %{creator_id: user.id}))
+  end
 
   test "POST /api/tweet", %{conn: conn} do
-    post_data = %{message: "Message 1"}
+    {:ok, tweet} = create_tweet(%{message: "Message 1"})
 
     response =
       conn
-      |> post(Routes.tweet_path(conn, :create), post_data)
+      |> post(Routes.tweet_path(conn, :create), Map.from_struct(tweet))
       |> json_response(201)
 
-    assert response["message"] == post_data[:message]
+    assert response["message"] == tweet.message
   end
 
   test "GET /api/tweet/:id", %{conn: conn} do
-    post_data = %{message: "Message 1"}
-
-    {:ok, tweet} = Resources.create_tweet(post_data)
+    {:ok, tweet} = create_tweet(%{message: "Message 1"})
 
     response =
       conn
       |> get(Routes.tweet_path(conn, :show, tweet.id))
       |> json_response(200)
 
-    assert response["message"] == post_data[:message]
+    assert response["message"] == tweet.message
   end
 
   test "GET /api/tweet/:id with 404", %{conn: conn} do
@@ -42,9 +46,9 @@ defmodule TwitterWeb.TweetControllerTest do
     ]
 
     [
-      {:ok, user1},
-      {:ok, user2}
-    ] = Enum.map(tweets, &Resources.create_tweet(&1))
+      {:ok, tweet1},
+      {:ok, tweet2}
+    ] = Enum.map(tweets, &create_tweet(&1))
 
     response =
       conn
@@ -54,15 +58,15 @@ defmodule TwitterWeb.TweetControllerTest do
     assert Enum.count(response) > 0
 
     expected = [
-      %{"message" => user1.message},
-      %{"message" => user2.message}
+      %{"message" => tweet1.message},
+      %{"message" => tweet2.message}
     ]
 
     assert Enum.map(response, &Map.take(&1, ["message"])) == expected
   end
 
   test "PUT /api/tweet/:id", %{conn: conn} do
-    {:ok, tweet} = Resources.create_tweet(%{message: "Message 1"})
+    {:ok, tweet} = create_tweet(%{message: "Message 1"})
 
     put_data = %{message: "Message 2"}
 
@@ -86,7 +90,7 @@ defmodule TwitterWeb.TweetControllerTest do
   end
 
   test "DELETE /api/tweet/:id", %{conn: conn} do
-    {:ok, tweet} = Resources.create_tweet(%{message: "Message 1"})
+    {:ok, tweet} = create_tweet(%{message: "Message 1"})
 
     response =
       conn

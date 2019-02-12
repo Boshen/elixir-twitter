@@ -2,6 +2,7 @@ defmodule Twitter.ResourcesTest do
   use Twitter.DataCase
 
   alias Twitter.Resources
+  alias Twitter.Accounts
 
   describe "tweets" do
     alias Twitter.Resources.Tweet
@@ -11,9 +12,11 @@ defmodule Twitter.ResourcesTest do
     @invalid_attrs %{message: nil}
 
     def tweet_fixture(attrs \\ %{}) do
+      {:ok, user} = Accounts.create_user(%{name: "username"})
+
       {:ok, tweet} =
         attrs
-        |> Enum.into(@valid_attrs)
+        |> Enum.into(Map.merge(@valid_attrs, %{creator_id: user.id}))
         |> Resources.create_tweet()
 
       tweet
@@ -30,7 +33,11 @@ defmodule Twitter.ResourcesTest do
     end
 
     test "create_tweet/1 with valid data creates a tweet" do
-      assert {:ok, %Tweet{} = tweet} = Resources.create_tweet(@valid_attrs)
+      {:ok, user} = Accounts.create_user(%{name: "username"})
+
+      assert {:ok, %Tweet{} = tweet} =
+               Resources.create_tweet(Map.merge(@valid_attrs, %{creator_id: user.id}))
+
       assert tweet.message == "some message"
     end
 

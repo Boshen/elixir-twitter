@@ -1,18 +1,18 @@
-defmodule TwitterWeb.TweetController do
+defmodule TwitterWeb.UserController do
   use TwitterWeb, :controller
-  alias Twitter.Resources
+  alias Twitter.Accounts
   alias TwitterWeb.ErrorHelpers
-  alias Twitter.Resources.Tweet
+  alias Twitter.Accounts.User
   alias Ecto.Changeset
 
   def index(conn, _params) do
-    conn |> json(Resources.list_tweets())
+    conn |> json(Accounts.list_users())
   end
 
   def show(conn, params) do
     try do
-      tweet = Resources.get_tweet!(params["id"])
-      conn |> json(tweet)
+      user = Accounts.get_user!(params["id"])
+      conn |> json(user)
     rescue
       Ecto.NoResultsError ->
         conn
@@ -22,11 +22,11 @@ defmodule TwitterWeb.TweetController do
   end
 
   def create(conn, params) do
-    case Resources.create_tweet(params) do
-      {:ok, tweet} ->
+    case Accounts.create_user(params) do
+      {:ok, user} ->
         conn
         |> put_status(:created)
-        |> json(tweet)
+        |> json(user)
 
       {:error, changeset} ->
         conn
@@ -40,11 +40,11 @@ defmodule TwitterWeb.TweetController do
   def update(conn, params) do
     try do
       {id, data} = Map.pop(params, "id")
-      result = Resources.update_tweet(%Tweet{id: String.to_integer(id)}, data)
+      result = Accounts.update_user(%User{id: String.to_integer(id)}, data)
 
       case result do
-        {:ok, tweet} ->
-          conn |> json(tweet)
+        {:ok, user} ->
+          conn |> json(user)
 
         {:error, changeset} ->
           conn
@@ -57,18 +57,18 @@ defmodule TwitterWeb.TweetController do
       _ ->
         conn
         |> put_status(:bad_request)
-        |> json(%{errors: ["unable to update tweet"]})
+        |> json(%{errors: ["unable to update user"]})
     end
   end
 
   def delete(conn, params) do
     try do
-      result = Resources.delete_tweet(%Tweet{id: String.to_integer(params["id"])})
+      result = Accounts.delete_user(%User{id: String.to_integer(params["id"])})
 
       case result do
-        {:ok, tweet} ->
+        {:ok, user} ->
           conn
-          |> json(tweet)
+          |> json(user)
 
         {:error, changeset} ->
           conn
@@ -81,7 +81,7 @@ defmodule TwitterWeb.TweetController do
       _ ->
         conn
         |> put_status(:bad_request)
-        |> json(%{errors: ["unable to delete tweet"]})
+        |> json(%{errors: ["unable to delete user"]})
     end
   end
 end
