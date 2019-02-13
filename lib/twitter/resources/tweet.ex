@@ -1,4 +1,7 @@
 defmodule Twitter.Resources.Tweet do
+  @moduledoc """
+  Tweet Schema
+  """
   use Ecto.Schema
   import Ecto.Changeset
   alias Twitter.Accounts.User

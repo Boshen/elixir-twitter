@@ -3,7 +3,7 @@ defmodule TwitterWeb.TweetControllerTest do
   alias Twitter.Resources
   alias Twitter.Accounts
 
-  def create_tweet(params = %{}) do
+  def create_tweet(params) do
     {:ok, user} = Accounts.create_user(%{name: "username"})
     {:ok, tweet} = Resources.create_tweet(Map.merge(params, %{creator_id: user.id}))
     {tweet, user}

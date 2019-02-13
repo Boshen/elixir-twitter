@@ -61,7 +61,8 @@ defmodule Twitter.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:mix_test_watch, "~> 0.8", only: :dev, runtime: false},
       {:excoveralls, "~> 0.10", only: :test},
-      {:ex_doc, "~> 0.19", only: [:test, :dev], runtime: false}
+      {:ex_doc, "~> 0.19", only: [:test, :dev], runtime: false},
+      {:credo, "~> 1.0.0", only: [:dev, :test], runtime: false}
     ]
   end
 

@@ -63,6 +63,7 @@ jobs:
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: mix coveralls.json
       - run: bash <(curl -s https://codecov.io/bash)
+      - run: mix credo list
       - run: mix docs
       - persist_to_workspace:
           root: .
