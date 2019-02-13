@@ -11,10 +11,21 @@ defmodule Twitter.MixProject do
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
+
+      # excoveralls
       test_coverage: [tool: ExCoveralls],
       preferred_cli_env: [
         coveralls: :test,
         "coveralls.json": :test
+      ],
+
+      # ex_doc
+      name: "elixir-twitter",
+      source_url: "https://github.com/boshen/elixir-twitter",
+      homepage_url: "http://boshen.github.io/elixir-twitter",
+      docs: [
+        main: "Twitter",
+        extras: ["README.md"]
       ]
     ]
   end
@@ -49,7 +60,8 @@ defmodule Twitter.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:mix_test_watch, "~> 0.8", only: :dev, runtime: false},
-      {:excoveralls, "~> 0.10", only: :test}
+      {:excoveralls, "~> 0.10", only: :test},
+      {:ex_doc, "~> 0.19", only: [:test, :dev], runtime: false}
     ]
   end
 

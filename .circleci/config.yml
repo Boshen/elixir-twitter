@@ -1,6 +1,19 @@
 version: 2
-jobs:
+
+workflows:
+  version: 2
   build:
+    jobs:
+      - test
+      - docs:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
+
+jobs:
+  test:
     parallelism: 1
     docker:
       - image: circleci/elixir:1.8.0
@@ -45,14 +58,31 @@ jobs:
       - save_cache:
           key: v1-build-cache
           paths: "_build"
-
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
-
       - run: mix coveralls.json
-
       - run: bash <(curl -s https://codecov.io/bash)
+      - run: mix docs
+      - persist_to_workspace:
+          root: .
+          paths:
+            - doc
 
-      - store_test_results:
-          path: _build/test/lib/twitter
+  docs:
+    parallelism: 1
+    docker:
+      - image: node:8.10.0
+    working_directory: ~/app
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/app
+      - add_ssh_keys:
+          fingerprints:
+            - "93:a0:2c:e7:78:99:43:68:ab:12:89:eb:62:33:18:2f"
+      - run: |
+          npm install -g --silent gh-pages@2.0.1
+          git config --global user.email "boshenc@gmail.com"
+          git config --global user.name "Boshen"
+      - run: gh-pages --dotfiles --message "[skip ci] Updates" --dist doc
