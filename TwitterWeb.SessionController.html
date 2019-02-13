@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.19.3">
-    <title>Twitter.DataCase — elixir-twitter v0.1.0</title>
+    <title>TwitterWeb.SessionController — elixir-twitter v0.1.0</title>
     <link rel="stylesheet" href="dist/html-399e30b9b028e3059575.css" />
     <script src="dist/sidebar_items-be17fe24ef.js"></script>
     <script async src="dist/html-399e30b9b028e3059575.js"></script>
@@ -59,24 +59,14 @@ elixir-twitter      </h1>
 
       <h1>
         <small class="visible-xs">elixir-twitter v0.1.0</small>
-Twitter.DataCase        
-          <a href="https://github.com/boshen/elixir-twitter/blob/master/test/support/data_case.ex#L1" title="View Source" class="view-source" rel="help">
+TwitterWeb.SessionController        
+          <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter_web/controllers/session_controller.ex#L1" title="View Source" class="view-source" rel="help">
             <span class="icon-code" aria-hidden="true"></span>
             <span class="sr-only">View Source</span>
           </a>
       </h1>
 
 
-        <section id="moduledoc">
-<p>This module defines the setup for tests requiring
-access to the application&#39;s data layer.</p>
-<p>You may define functions here to be used as helpers in
-your tests.</p>
-<p>Finally, if the test case interacts with the database,
-it cannot be async. For this reason, every test runs
-inside a transaction which is reset at the beginning
-of the test unless the test case is marked as async.</p>
-        </section>
 
         <section id="summary" class="details-list">
           <h1 class="section-heading">
@@ -92,10 +82,18 @@ of the test unless the test case is marked as async.</p>
     </h2>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#errors_on/1">errors_on(changeset)</a>
+    <a href="#auth/2">auth(conn, params)</a>
   </div>
-    <div class="summary-synopsis"><p>A helper that transforms changeset errors into a map of messages</p>
 </div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#login/2">login(conn, map)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#logout/2">logout(conn, _)</a>
+  </div>
 </div>
   </div>
         </section>
@@ -108,23 +106,49 @@ of the test unless the test case is marked as async.</p>
             </a>
 Functions          </h1>
           <div class="functions-list">
-<section class="detail" id="errors_on/1">
+<section class="detail" id="auth/2">
     <div class="detail-header">
-    <a href="#errors_on/1" class="detail-link" title="Link to this function">
+    <a href="#auth/2" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature">errors_on(changeset)</span>
-      <a href="https://github.com/boshen/elixir-twitter/blob/master/test/support/data_case.ex#L46" class="view-source" rel="help" title="View Source">
+    <h1 class="signature">auth(conn, params)</span>
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter_web/controllers/session_controller.ex#L27" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
           </div>
   <section class="docstring">
-<p>A helper that transforms changeset errors into a map of messages.</p>
-<pre><code class="nohighlight makeup elixir"><span class="n">assert</span><span class="w"> </span><span class="p" data-group-id="9182571618-1">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="n">changeset</span><span class="p" data-group-id="9182571618-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Accounts</span><span class="o">.</span><span class="n">create_user</span><span class="p" data-group-id="9182571618-2">(</span><span class="p" data-group-id="9182571618-3">%{</span><span class="ss">password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;short&quot;</span><span class="p" data-group-id="9182571618-3">}</span><span class="p" data-group-id="9182571618-2">)</span><span class="w">
-</span><span class="n">assert</span><span class="w"> </span><span class="s">&quot;password is too short&quot;</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">errors_on</span><span class="p" data-group-id="9182571618-4">(</span><span class="n">changeset</span><span class="p" data-group-id="9182571618-4">)</span><span class="o">.</span><span class="n">password</span><span class="w">
-</span><span class="n">assert</span><span class="w"> </span><span class="p" data-group-id="9182571618-5">%{</span><span class="ss">password</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9182571618-6">[</span><span class="s">&quot;password is too short&quot;</span><span class="p" data-group-id="9182571618-6">]</span><span class="p" data-group-id="9182571618-5">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">errors_on</span><span class="p" data-group-id="9182571618-7">(</span><span class="n">changeset</span><span class="p" data-group-id="9182571618-7">)</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="login/2">
+    <div class="detail-header">
+    <a href="#login/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">login(conn, map)</span>
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter_web/controllers/session_controller.ex#L6" class="view-source" rel="help" title="View Source">
+       <span class="icon-code" aria-hidden="true"></span>
+       <span class="sr-only">View Source</span>
+     </a>
+          </div>
+  <section class="docstring">
+  </section>
+</section>
+<section class="detail" id="logout/2">
+    <div class="detail-header">
+    <a href="#logout/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">logout(conn, _)</span>
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter_web/controllers/session_controller.ex#L21" class="view-source" rel="help" title="View Source">
+       <span class="icon-code" aria-hidden="true"></span>
+       <span class="sr-only">View Source</span>
+     </a>
+          </div>
+  <section class="docstring">
   </section>
 </section>
           </div>

@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.19.3">
-    <title>Twitter.DataCase — elixir-twitter v0.1.0</title>
+    <title>Twitter.Accounts.Pipeline — elixir-twitter v0.1.0</title>
     <link rel="stylesheet" href="dist/html-399e30b9b028e3059575.css" />
     <script src="dist/sidebar_items-be17fe24ef.js"></script>
     <script async src="dist/html-399e30b9b028e3059575.js"></script>
@@ -59,8 +59,8 @@ elixir-twitter      </h1>
 
       <h1>
         <small class="visible-xs">elixir-twitter v0.1.0</small>
-Twitter.DataCase        
-          <a href="https://github.com/boshen/elixir-twitter/blob/master/test/support/data_case.ex#L1" title="View Source" class="view-source" rel="help">
+Twitter.Accounts.Pipeline        
+          <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/accounts/pipeline.ex#L1" title="View Source" class="view-source" rel="help">
             <span class="icon-code" aria-hidden="true"></span>
             <span class="sr-only">View Source</span>
           </a>
@@ -68,14 +68,7 @@ Twitter.DataCase
 
 
         <section id="moduledoc">
-<p>This module defines the setup for tests requiring
-access to the application&#39;s data layer.</p>
-<p>You may define functions here to be used as helpers in
-your tests.</p>
-<p>Finally, if the test case interacts with the database,
-it cannot be async. For this reason, every test runs
-inside a transaction which is reset at the beginning
-of the test unless the test case is marked as async.</p>
+<p>The Accounts Pipeline.</p>
         </section>
 
         <section id="summary" class="details-list">
@@ -92,9 +85,16 @@ of the test unless the test case is marked as async.</p>
     </h2>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#errors_on/1">errors_on(changeset)</a>
+    <a href="#call/2">call(conn, opts)</a>
   </div>
-    <div class="summary-synopsis"><p>A helper that transforms changeset errors into a map of messages</p>
+    <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/plug/1.7.2/Plug.html#c:call/2"><code class="inline">Plug.call/2</code></a></p>
+</div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#init/1">init(opts)</a>
+  </div>
+    <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/plug/1.7.2/Plug.html#c:init/1"><code class="inline">Plug.init/1</code></a></p>
 </div>
 </div>
   </div>
@@ -108,23 +108,36 @@ of the test unless the test case is marked as async.</p>
             </a>
 Functions          </h1>
           <div class="functions-list">
-<section class="detail" id="errors_on/1">
+<section class="detail" id="call/2">
     <div class="detail-header">
-    <a href="#errors_on/1" class="detail-link" title="Link to this function">
+    <a href="#call/2" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature">errors_on(changeset)</span>
-      <a href="https://github.com/boshen/elixir-twitter/blob/master/test/support/data_case.ex#L46" class="view-source" rel="help" title="View Source">
+    <h1 class="signature">call(conn, opts)</span>
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/accounts/pipeline.ex#L5" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
           </div>
   <section class="docstring">
-<p>A helper that transforms changeset errors into a map of messages.</p>
-<pre><code class="nohighlight makeup elixir"><span class="n">assert</span><span class="w"> </span><span class="p" data-group-id="9182571618-1">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="n">changeset</span><span class="p" data-group-id="9182571618-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Accounts</span><span class="o">.</span><span class="n">create_user</span><span class="p" data-group-id="9182571618-2">(</span><span class="p" data-group-id="9182571618-3">%{</span><span class="ss">password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;short&quot;</span><span class="p" data-group-id="9182571618-3">}</span><span class="p" data-group-id="9182571618-2">)</span><span class="w">
-</span><span class="n">assert</span><span class="w"> </span><span class="s">&quot;password is too short&quot;</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">errors_on</span><span class="p" data-group-id="9182571618-4">(</span><span class="n">changeset</span><span class="p" data-group-id="9182571618-4">)</span><span class="o">.</span><span class="n">password</span><span class="w">
-</span><span class="n">assert</span><span class="w"> </span><span class="p" data-group-id="9182571618-5">%{</span><span class="ss">password</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9182571618-6">[</span><span class="s">&quot;password is too short&quot;</span><span class="p" data-group-id="9182571618-6">]</span><span class="p" data-group-id="9182571618-5">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">errors_on</span><span class="p" data-group-id="9182571618-7">(</span><span class="n">changeset</span><span class="p" data-group-id="9182571618-7">)</span></code></pre>
+<p>Callback implementation for <a href="https://hexdocs.pm/plug/1.7.2/Plug.html#c:call/2"><code class="inline">Plug.call/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="init/1">
+    <div class="detail-header">
+    <a href="#init/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">init(opts)</span>
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/accounts/pipeline.ex#L5" class="view-source" rel="help" title="View Source">
+       <span class="icon-code" aria-hidden="true"></span>
+       <span class="sr-only">View Source</span>
+     </a>
+          </div>
+  <section class="docstring">
+<p>Callback implementation for <a href="https://hexdocs.pm/plug/1.7.2/Plug.html#c:init/1"><code class="inline">Plug.init/1</code></a>.</p>
   </section>
 </section>
           </div>

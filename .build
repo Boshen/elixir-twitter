@@ -4,13 +4,17 @@ dist/html/fonts/icomoon.eot
 dist/html/fonts/icomoon.svg
 dist/html/fonts/icomoon.ttf
 dist/html/fonts/icomoon.woff
-dist/sidebar_items-eedb6cb2ac.js
+dist/sidebar_items-be17fe24ef.js
 api-reference.html
 readme.html
 search.html
 404.html
 Twitter.html
 Twitter.Accounts.html
+Twitter.Accounts.ErrorHandler.html
+Twitter.Accounts.Guardian.html
+Twitter.Accounts.Guardian.Plug.html
+Twitter.Accounts.Pipeline.html
 Twitter.Accounts.User.html
 Twitter.DataCase.html
 Twitter.Repo.html
@@ -29,6 +33,7 @@ TwitterWeb.PageController.html
 TwitterWeb.PageView.html
 TwitterWeb.Router.html
 TwitterWeb.Router.Helpers.html
+TwitterWeb.SessionController.html
 TwitterWeb.TweetController.html
 TwitterWeb.UserController.html
 TwitterWeb.UserSocket.html
