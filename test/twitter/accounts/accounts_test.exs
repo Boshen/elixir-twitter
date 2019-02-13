@@ -21,7 +21,8 @@ defmodule Twitter.AccountsTest do
 
     test "list_users/0 returns all users" do
       user = user_fixture()
-      assert Accounts.list_users() == [user]
+      superuser = Twitter.Repo.get_by(User, name: "Superuser")
+      assert Accounts.list_users() == [superuser, user]
     end
 
     test "get_user/1 returns the user with given id" do

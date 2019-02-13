@@ -106,4 +106,16 @@ defmodule Twitter.Accounts do
   def change_user(%User{} = user) do
     User.changeset(user, %{})
   end
+
+  def authenticate_user(name, _plain_text_password) do
+    query = from u in User, where: u.name == ^name
+
+    case Repo.one(query) do
+      nil ->
+        {:error, :invalid_credentials}
+
+      user ->
+        {:ok, user}
+    end
+  end
 end

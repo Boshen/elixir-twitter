@@ -9,3 +9,12 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+alias Twitter.Repo
+alias Twitter.Accounts.User
+
+if !Repo.get_by(User, name: "Superuser") do
+  Repo.insert(%User{
+    name: "Superuser"
+  })
+end

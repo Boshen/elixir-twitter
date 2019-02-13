@@ -33,6 +33,12 @@ defmodule TwitterWeb.ConnCase do
       Ecto.Adapters.SQL.Sandbox.mode(Twitter.Repo, {:shared, self()})
     end
 
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
+    user = Twitter.Repo.get_by(Twitter.Accounts.User, name: "Superuser")
+
+    conn =
+      Phoenix.ConnTest.build_conn()
+      |> Twitter.Accounts.Guardian.Plug.sign_in(user)
+
+    {:ok, conn: conn}
   end
 end

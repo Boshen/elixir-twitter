@@ -73,3 +73,7 @@ config :twitter, Twitter.Repo,
   database: "twitter_dev",
   hostname: "localhost",
   pool_size: 10
+
+config :twitter, Twitter.Accounts.Guardian,
+  issuer: "twitter",
+  secret_key: "Jox+XAdYpQzLhVB9NOEvei82SMZyrvmqsLM+SDHo4Q/+cU5C1sysvH39OYKzZo6l"

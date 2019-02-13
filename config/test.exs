@@ -16,3 +16,7 @@ config :twitter, Twitter.Repo,
   database: "twitter_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+config :twitter, Twitter.Accounts.Guardian,
+  issuer: "twitter",
+  secret_key: "ogMe+op3LhJWYXafwZLBWDh5IKwqxUsWKD9OK8bo84mt1hxTyQOE29Bo2jqCETiw"

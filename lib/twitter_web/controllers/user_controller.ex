@@ -1,7 +1,6 @@
 defmodule TwitterWeb.UserController do
   use TwitterWeb, :controller
-  alias Twitter.Accounts
-  alias Twitter.Accounts.User
+  alias Twitter.{Accounts, Accounts.User, Accounts.Guardian}
 
   action_fallback TwitterWeb.FallbackController
 
@@ -27,6 +26,7 @@ defmodule TwitterWeb.UserController do
     {id, data} = Map.pop(params, "id")
 
     user = %User{id: String.to_integer(id)}
+
     with {:ok, user} <- Accounts.update_user(user, data) do
       conn |> json(user)
     end

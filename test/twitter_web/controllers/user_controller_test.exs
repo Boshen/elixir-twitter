@@ -52,6 +52,7 @@ defmodule TwitterWeb.UserControllerTest do
     assert Enum.count(response) > 0
 
     expected = [
+      %{"name" => "Superuser"},
       %{"name" => user1.name},
       %{"name" => user2.name}
     ]

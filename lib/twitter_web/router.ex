@@ -13,11 +13,26 @@ defmodule TwitterWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :auth do
+    plug Twitter.Accounts.Pipeline
+  end
+
+  pipeline :ensure_auth do
+    plug Guardian.Plug.EnsureAuthenticated
+  end
+
   scope "/api", TwitterWeb do
-    pipe_through :api
+    pipe_through [:api, :auth]
+    post "/login", SessionController, :login
+    post "/logout", SessionController, :logout
+  end
+
+  scope "/api", TwitterWeb do
+    pipe_through [:api, :auth, :ensure_auth]
 
     resources "/tweet", TweetController, except: [:new, :edit]
-    resources "/user", UserController, except: [:new, :edit]
+    resources "/user", UserController, except: [:edit]
+    get "/auth", SessionController, :auth
   end
 
   scope "/", TwitterWeb do
