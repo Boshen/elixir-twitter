@@ -143,7 +143,7 @@ Functions          </h1>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature">change_tweet(tweet)</span>
-      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/resources/resources.ex#L120" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/resources/resources.ex#L119" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -155,8 +155,8 @@ Functions          </h1>
   Examples
 </h2>
 
-<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="n">change_tweet</span><span class="p" data-group-id="6651016308-1">(</span><span class="n">tweet</span><span class="p" data-group-id="6651016308-1">)</span><span class="w">
-</span><span class="p" data-group-id="6651016308-2">%</span><span class="nc" data-group-id="6651016308-2">Ecto.Changeset</span><span class="p" data-group-id="6651016308-2">{</span><span class="ss">source</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6651016308-3">%</span><span class="nc" data-group-id="6651016308-3">Tweet</span><span class="p" data-group-id="6651016308-3">{</span><span class="p" data-group-id="6651016308-3">}</span><span class="p" data-group-id="6651016308-2">}</span></code></pre>
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="n">change_tweet</span><span class="p" data-group-id="5258110833-1">(</span><span class="n">tweet</span><span class="p" data-group-id="5258110833-1">)</span><span class="w">
+</span><span class="p" data-group-id="5258110833-2">%</span><span class="nc" data-group-id="5258110833-2">Ecto.Changeset</span><span class="p" data-group-id="5258110833-2">{</span><span class="ss">source</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5258110833-3">%</span><span class="nc" data-group-id="5258110833-3">Tweet</span><span class="p" data-group-id="5258110833-3">{</span><span class="p" data-group-id="5258110833-3">}</span><span class="p" data-group-id="5258110833-2">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="create_tweet/1">
@@ -168,7 +168,7 @@ Functions          </h1>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature">create_tweet(attrs \\ %{})</span>
-      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/resources/resources.ex#L71" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/resources/resources.ex#L70" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -180,11 +180,11 @@ Functions          </h1>
   Examples
 </h2>
 
-<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="n">create_tweet</span><span class="p" data-group-id="7497175971-1">(</span><span class="p" data-group-id="7497175971-2">%{</span><span class="ss">field</span><span class="p">:</span><span class="w"> </span><span class="n">value</span><span class="p" data-group-id="7497175971-2">}</span><span class="p" data-group-id="7497175971-1">)</span><span class="w">
-</span><span class="p" data-group-id="7497175971-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7497175971-4">%</span><span class="nc" data-group-id="7497175971-4">Tweet</span><span class="p" data-group-id="7497175971-4">{</span><span class="p" data-group-id="7497175971-4">}</span><span class="p" data-group-id="7497175971-3">}</span><span class="w">
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="n">create_tweet</span><span class="p" data-group-id="3789838322-1">(</span><span class="p" data-group-id="3789838322-2">%{</span><span class="ss">field</span><span class="p">:</span><span class="w"> </span><span class="n">value</span><span class="p" data-group-id="3789838322-2">}</span><span class="p" data-group-id="3789838322-1">)</span><span class="w">
+</span><span class="p" data-group-id="3789838322-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3789838322-4">%</span><span class="nc" data-group-id="3789838322-4">Tweet</span><span class="p" data-group-id="3789838322-4">{</span><span class="p" data-group-id="3789838322-4">}</span><span class="p" data-group-id="3789838322-3">}</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">create_tweet</span><span class="p" data-group-id="7497175971-5">(</span><span class="p" data-group-id="7497175971-6">%{</span><span class="ss">field</span><span class="p">:</span><span class="w"> </span><span class="n">bad_value</span><span class="p" data-group-id="7497175971-6">}</span><span class="p" data-group-id="7497175971-5">)</span><span class="w">
-</span><span class="p" data-group-id="7497175971-7">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7497175971-8">%</span><span class="nc" data-group-id="7497175971-8">Ecto.Changeset</span><span class="p" data-group-id="7497175971-8">{</span><span class="p" data-group-id="7497175971-8">}</span><span class="p" data-group-id="7497175971-7">}</span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="n">create_tweet</span><span class="p" data-group-id="3789838322-5">(</span><span class="p" data-group-id="3789838322-6">%{</span><span class="ss">field</span><span class="p">:</span><span class="w"> </span><span class="n">bad_value</span><span class="p" data-group-id="3789838322-6">}</span><span class="p" data-group-id="3789838322-5">)</span><span class="w">
+</span><span class="p" data-group-id="3789838322-7">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3789838322-8">%</span><span class="nc" data-group-id="3789838322-8">Ecto.Changeset</span><span class="p" data-group-id="3789838322-8">{</span><span class="p" data-group-id="3789838322-8">}</span><span class="p" data-group-id="3789838322-7">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="delete_tweet/1">
@@ -194,7 +194,7 @@ Functions          </h1>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature">delete_tweet(tweet)</span>
-      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/resources/resources.ex#L107" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/resources/resources.ex#L106" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -206,11 +206,11 @@ Functions          </h1>
   Examples
 </h2>
 
-<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="n">delete_tweet</span><span class="p" data-group-id="2888125978-1">(</span><span class="n">tweet</span><span class="p" data-group-id="2888125978-1">)</span><span class="w">
-</span><span class="p" data-group-id="2888125978-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2888125978-3">%</span><span class="nc" data-group-id="2888125978-3">Tweet</span><span class="p" data-group-id="2888125978-3">{</span><span class="p" data-group-id="2888125978-3">}</span><span class="p" data-group-id="2888125978-2">}</span><span class="w">
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="n">delete_tweet</span><span class="p" data-group-id="3523696518-1">(</span><span class="n">tweet</span><span class="p" data-group-id="3523696518-1">)</span><span class="w">
+</span><span class="p" data-group-id="3523696518-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3523696518-3">%</span><span class="nc" data-group-id="3523696518-3">Tweet</span><span class="p" data-group-id="3523696518-3">{</span><span class="p" data-group-id="3523696518-3">}</span><span class="p" data-group-id="3523696518-2">}</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">delete_tweet</span><span class="p" data-group-id="2888125978-4">(</span><span class="n">tweet</span><span class="p" data-group-id="2888125978-4">)</span><span class="w">
-</span><span class="p" data-group-id="2888125978-5">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2888125978-6">%</span><span class="nc" data-group-id="2888125978-6">Ecto.Changeset</span><span class="p" data-group-id="2888125978-6">{</span><span class="p" data-group-id="2888125978-6">}</span><span class="p" data-group-id="2888125978-5">}</span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="n">delete_tweet</span><span class="p" data-group-id="3523696518-4">(</span><span class="n">tweet</span><span class="p" data-group-id="3523696518-4">)</span><span class="w">
+</span><span class="p" data-group-id="3523696518-5">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3523696518-6">%</span><span class="nc" data-group-id="3523696518-6">Ecto.Changeset</span><span class="p" data-group-id="3523696518-6">{</span><span class="p" data-group-id="3523696518-6">}</span><span class="p" data-group-id="3523696518-5">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="get_tweet/1">
@@ -220,7 +220,7 @@ Functions          </h1>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature">get_tweet(id)</span>
-      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/resources/resources.ex#L45" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/resources/resources.ex#L44" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -233,11 +233,11 @@ Functions          </h1>
   Examples
 </h2>
 
-<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="n">get_tweet</span><span class="p" data-group-id="8558122340-1">(</span><span class="mi">123</span><span class="p" data-group-id="8558122340-1">)</span><span class="w">
-</span><span class="p" data-group-id="8558122340-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8558122340-3">%</span><span class="nc" data-group-id="8558122340-3">Tweet</span><span class="p" data-group-id="8558122340-3">{</span><span class="p" data-group-id="8558122340-3">}</span><span class="p" data-group-id="8558122340-2">}</span><span class="w">
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="n">get_tweet</span><span class="p" data-group-id="5248850516-1">(</span><span class="mi">123</span><span class="p" data-group-id="5248850516-1">)</span><span class="w">
+</span><span class="p" data-group-id="5248850516-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5248850516-3">%</span><span class="nc" data-group-id="5248850516-3">Tweet</span><span class="p" data-group-id="5248850516-3">{</span><span class="p" data-group-id="5248850516-3">}</span><span class="p" data-group-id="5248850516-2">}</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">get_tweet</span><span class="p" data-group-id="8558122340-4">(</span><span class="mi">456</span><span class="p" data-group-id="8558122340-4">)</span><span class="w">
-</span><span class="p" data-group-id="8558122340-5">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8558122340-6">%</span><span class="nc" data-group-id="8558122340-6">Ecto.Changeset</span><span class="p" data-group-id="8558122340-6">{</span><span class="p" data-group-id="8558122340-6">}</span><span class="p" data-group-id="8558122340-5">}</span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="n">get_tweet</span><span class="p" data-group-id="5248850516-4">(</span><span class="mi">456</span><span class="p" data-group-id="5248850516-4">)</span><span class="w">
+</span><span class="p" data-group-id="5248850516-5">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5248850516-6">%</span><span class="nc" data-group-id="5248850516-6">Ecto.Changeset</span><span class="p" data-group-id="5248850516-6">{</span><span class="p" data-group-id="5248850516-6">}</span><span class="p" data-group-id="5248850516-5">}</span></code></pre>
   </section>
 </section>
 <section class="detail" id="list_tweets/0">
@@ -247,7 +247,7 @@ Functions          </h1>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature">list_tweets()</span>
-      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/resources/resources.ex#L21" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/resources/resources.ex#L20" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -259,8 +259,8 @@ Functions          </h1>
   Examples
 </h2>
 
-<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="n">list_tweets</span><span class="p" data-group-id="4202834501-1">(</span><span class="p" data-group-id="4202834501-1">)</span><span class="w">
-</span><span class="p" data-group-id="4202834501-2">[</span><span class="p" data-group-id="4202834501-3">%</span><span class="nc" data-group-id="4202834501-3">Tweet</span><span class="p" data-group-id="4202834501-3">{</span><span class="p" data-group-id="4202834501-3">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="4202834501-2">]</span></code></pre>
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="n">list_tweets</span><span class="p" data-group-id="3975900700-1">(</span><span class="p" data-group-id="3975900700-1">)</span><span class="w">
+</span><span class="p" data-group-id="3975900700-2">[</span><span class="p" data-group-id="3975900700-3">%</span><span class="nc" data-group-id="3975900700-3">Tweet</span><span class="p" data-group-id="3975900700-3">{</span><span class="p" data-group-id="3975900700-3">}</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p" data-group-id="3975900700-2">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="update_tweet/2">
@@ -270,7 +270,7 @@ Functions          </h1>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature">update_tweet(tweet, attrs)</span>
-      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/resources/resources.ex#L89" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/resources/resources.ex#L88" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -282,11 +282,11 @@ Functions          </h1>
   Examples
 </h2>
 
-<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="n">update_tweet</span><span class="p" data-group-id="5380913339-1">(</span><span class="n">tweet</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5380913339-2">%{</span><span class="ss">field</span><span class="p">:</span><span class="w"> </span><span class="n">new_value</span><span class="p" data-group-id="5380913339-2">}</span><span class="p" data-group-id="5380913339-1">)</span><span class="w">
-</span><span class="p" data-group-id="5380913339-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5380913339-4">%</span><span class="nc" data-group-id="5380913339-4">Tweet</span><span class="p" data-group-id="5380913339-4">{</span><span class="p" data-group-id="5380913339-4">}</span><span class="p" data-group-id="5380913339-3">}</span><span class="w">
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="n">update_tweet</span><span class="p" data-group-id="3517930344-1">(</span><span class="n">tweet</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3517930344-2">%{</span><span class="ss">field</span><span class="p">:</span><span class="w"> </span><span class="n">new_value</span><span class="p" data-group-id="3517930344-2">}</span><span class="p" data-group-id="3517930344-1">)</span><span class="w">
+</span><span class="p" data-group-id="3517930344-3">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3517930344-4">%</span><span class="nc" data-group-id="3517930344-4">Tweet</span><span class="p" data-group-id="3517930344-4">{</span><span class="p" data-group-id="3517930344-4">}</span><span class="p" data-group-id="3517930344-3">}</span><span class="w">
 
-</span><span class="gp unselectable">iex&gt; </span><span class="n">update_tweet</span><span class="p" data-group-id="5380913339-5">(</span><span class="n">tweet</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5380913339-6">%{</span><span class="ss">field</span><span class="p">:</span><span class="w"> </span><span class="n">bad_value</span><span class="p" data-group-id="5380913339-6">}</span><span class="p" data-group-id="5380913339-5">)</span><span class="w">
-</span><span class="p" data-group-id="5380913339-7">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5380913339-8">%</span><span class="nc" data-group-id="5380913339-8">Ecto.Changeset</span><span class="p" data-group-id="5380913339-8">{</span><span class="p" data-group-id="5380913339-8">}</span><span class="p" data-group-id="5380913339-7">}</span></code></pre>
+</span><span class="gp unselectable">iex&gt; </span><span class="n">update_tweet</span><span class="p" data-group-id="3517930344-5">(</span><span class="n">tweet</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3517930344-6">%{</span><span class="ss">field</span><span class="p">:</span><span class="w"> </span><span class="n">bad_value</span><span class="p" data-group-id="3517930344-6">}</span><span class="p" data-group-id="3517930344-5">)</span><span class="w">
+</span><span class="p" data-group-id="3517930344-7">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3517930344-8">%</span><span class="nc" data-group-id="3517930344-8">Ecto.Changeset</span><span class="p" data-group-id="3517930344-8">{</span><span class="p" data-group-id="3517930344-8">}</span><span class="p" data-group-id="3517930344-7">}</span></code></pre>
   </section>
 </section>
           </div>
