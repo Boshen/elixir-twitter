@@ -1,8 +1,8 @@
 import React, { useState, useEffect, userContext } from 'react'
 import axios from 'axios'
 
-import { UserContext } from './context/user.context'
-import { LoginPage } from './pages/login.page'
+import { UserContext } from '../context/user.context'
+import { LoginPage } from '../pages/login.page'
 
 export const Auth = ({ children }) => {
   const [user, updateUser] = useState(userContext)
@@ -10,7 +10,7 @@ export const Auth = ({ children }) => {
   useEffect(() => {
     axios.get('/api/auth')
       .then((res) => updateUser(res.data))
-      .catch(() => updateUser("error"))
+      .catch(() => updateUser('error'))
   }, [])
 
   return !!user && (
