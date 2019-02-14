@@ -1,17 +1,23 @@
 defmodule TwitterWeb.TweetControllerTest do
   use TwitterWeb.ConnCase
-  alias Twitter.Accounts
+  alias Twitter.Accounts.Guardian.Plug
   alias Twitter.Resources
 
-  def create_tweet(params) do
-    {:ok, user} = Accounts.create_user(%{name: "username"})
-    {:ok, tweet} = Resources.create_tweet(Map.merge(params, %{creator_id: user.id}))
+  def create_tweet(conn) do
+    user = Plug.current_resource(conn)
+
+    {:ok, tweet} =
+      Resources.create_tweet(%{
+        creator_id: user.id,
+        message: "Message 1"
+      })
+
     {tweet, user}
   end
 
   test "POST /api/tweet", %{conn: conn} do
-    {:ok, user} = Accounts.create_user(%{name: "username"})
-    tweet = %{message: "Message 1", creator_id: user.id}
+    user = Plug.current_resource(conn)
+    tweet = %{message: "Message 1"}
 
     response =
       conn
@@ -23,7 +29,7 @@ defmodule TwitterWeb.TweetControllerTest do
   end
 
   test "GET /api/tweet/:id", %{conn: conn} do
-    {tweet, user} = create_tweet(%{message: "Message 1"})
+    {tweet, user} = create_tweet(conn)
 
     response =
       conn
@@ -44,10 +50,8 @@ defmodule TwitterWeb.TweetControllerTest do
   end
 
   test "GET /api/tweet", %{conn: conn} do
-    {:ok, user1} = Accounts.create_user(%{name: "username 1"})
-    {:ok, user2} = Accounts.create_user(%{name: "username 2"})
-    {:ok, tweet1} = Resources.create_tweet(%{message: "Message 1", creator_id: user1.id})
-    {:ok, tweet2} = Resources.create_tweet(%{message: "Message 1", creator_id: user2.id})
+    {tweet1, _user} = create_tweet(conn)
+    {tweet2, _user} = create_tweet(conn)
 
     response =
       conn
@@ -65,7 +69,7 @@ defmodule TwitterWeb.TweetControllerTest do
   end
 
   test "PUT /api/tweet/:id", %{conn: conn} do
-    {tweet, _user} = create_tweet(%{message: "Message 1"})
+    {tweet, _user} = create_tweet(conn)
 
     put_data = %{message: "Message 2"}
 
@@ -89,7 +93,7 @@ defmodule TwitterWeb.TweetControllerTest do
   end
 
   test "DELETE /api/tweet/:id", %{conn: conn} do
-    {tweet, _user} = create_tweet(%{message: "Message 1"})
+    {tweet, _user} = create_tweet(conn)
 
     response =
       conn

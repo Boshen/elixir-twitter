@@ -3,19 +3,16 @@ import axios from 'axios'
 
 export const TweetsPage = () => {
   const [tweets, setTweets] = useState([])
-  const [user, setUser] = useState(null)
   const inputEl = useRef(null)
 
   useEffect(() => {
     axios.get('/api/tweet').then((res) => setTweets(res.data))
-    axios.get('/api/user').then((res) => setUser(res.data[0]))
   }, [])
 
   const onSubmit = (e) => {
     e.preventDefault()
     axios.post('/api/tweet', {
       message: inputEl.current.value,
-      creator_id: user.id
     })
       .then((response) => {
         setTweets(tweets.concat(response.data))
