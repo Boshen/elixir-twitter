@@ -6,8 +6,8 @@ defmodule Twitter.Accounts do
   import Ecto.Query, warn: false
   alias Twitter.Repo
 
-  alias Twitter.Accounts.User
   alias Twitter.Accounts.Follower
+  alias Twitter.Accounts.User
 
   @doc """
   Returns the list of users.

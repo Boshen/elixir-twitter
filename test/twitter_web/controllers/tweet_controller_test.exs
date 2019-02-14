@@ -1,18 +1,14 @@
 defmodule TwitterWeb.TweetControllerTest do
   use TwitterWeb.ConnCase
+  alias Twitter.Accounts
   alias Twitter.Accounts.Guardian.Plug
-  alias Twitter.Resources
 
   def create_tweet(conn) do
-    user = Plug.current_resource(conn)
+    tweet = %{message: "message"}
 
-    {:ok, tweet} =
-      Resources.create_tweet(%{
-        creator_id: user.id,
-        message: "Message 1"
-      })
-
-    {tweet, user}
+    conn
+    |> post(Routes.tweet_path(conn, :create), tweet)
+    |> json_response(201)
   end
 
   test "POST /api/tweet", %{conn: conn} do
@@ -29,15 +25,14 @@ defmodule TwitterWeb.TweetControllerTest do
   end
 
   test "GET /api/tweet/:id", %{conn: conn} do
-    {tweet, user} = create_tweet(conn)
+    tweet = create_tweet(conn)
 
     response =
       conn
-      |> get(Routes.tweet_path(conn, :show, tweet.id))
+      |> get(Routes.tweet_path(conn, :show, tweet["id"]))
       |> json_response(200)
 
-    assert response["message"] == tweet.message
-    assert response["creator"]["name"] == user.name
+    assert response == tweet
   end
 
   test "GET /api/tweet/:id with 404", %{conn: conn} do
@@ -50,32 +45,34 @@ defmodule TwitterWeb.TweetControllerTest do
   end
 
   test "GET /api/tweet", %{conn: conn} do
-    {tweet1, _user} = create_tweet(conn)
-    {tweet2, _user} = create_tweet(conn)
+    {:ok, new_user} = Accounts.create_user(%{name: "new user"})
 
-    response =
+    follower_tweet =
+      conn
+      |> Plug.sign_in(new_user)
+      |> post(Routes.tweet_path(conn, :create), %{message: "message 2"})
+      |> json_response(201)
+
+    conn
+    |> post(Routes.follower_path(conn, :create), %{follower_id: follower_tweet["creator"]["id"]})
+    |> json_response(201)
+
+    tweets =
       conn
       |> get(Routes.tweet_path(conn, :index))
       |> json_response(200)
 
-    assert Enum.count(response) > 0
-
-    expected = [
-      %{"message" => tweet1.message},
-      %{"message" => tweet2.message}
-    ]
-
-    assert Enum.map(response, &Map.take(&1, ["message"])) == expected
+    assert tweets == [follower_tweet]
   end
 
   test "PUT /api/tweet/:id", %{conn: conn} do
-    {tweet, _user} = create_tweet(conn)
+    tweet = create_tweet(conn)
 
     put_data = %{message: "Message 2"}
 
     response =
       conn
-      |> put(Routes.tweet_path(conn, :update, tweet.id, put_data))
+      |> put(Routes.tweet_path(conn, :update, tweet["id"], put_data))
       |> json_response(200)
 
     assert response["message"] == put_data[:message]
@@ -93,11 +90,11 @@ defmodule TwitterWeb.TweetControllerTest do
   end
 
   test "DELETE /api/tweet/:id", %{conn: conn} do
-    {tweet, _user} = create_tweet(conn)
+    tweet = create_tweet(conn)
 
     response =
       conn
-      |> delete(Routes.tweet_path(conn, :delete, tweet.id))
+      |> delete(Routes.tweet_path(conn, :delete, tweet["id"]))
       |> json_response(200)
 
     assert response

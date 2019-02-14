@@ -6,17 +6,13 @@ defmodule Twitter.ResourcesTest do
   alias Twitter.Resources.Tweet
 
   describe "tweets" do
-    @valid_attrs %{message: "some message"}
     @update_attrs %{message: "some updated message"}
     @invalid_attrs %{message: nil}
 
-    def tweet_fixture(attrs \\ %{}) do
-      {:ok, user} = Accounts.create_user(%{name: "username"})
+    def tweet_fixture(message \\ "message", username \\ "username") do
+      {:ok, user} = Accounts.create_user(%{name: username})
 
-      {:ok, tweet} =
-        attrs
-        |> Enum.into(Map.merge(@valid_attrs, %{creator_id: user.id}))
-        |> Resources.create_tweet()
+      {:ok, tweet} = Resources.create_tweet(%{message: message, creator_id: user.id})
 
       Map.merge(tweet, %{creator: user})
     end
@@ -24,6 +20,14 @@ defmodule Twitter.ResourcesTest do
     test "list_tweets/0 returns all tweets" do
       tweet = tweet_fixture()
       assert Resources.list_tweets() == [tweet]
+    end
+
+    test "list_following_tweets/1 returns all tweets that the user follow" do
+      tweet1 = tweet_fixture("message 1", "user 1")
+      tweet2 = tweet_fixture("message 2", "user 2")
+      {:ok, _result} = Accounts.follow_user(tweet1.creator, tweet2.creator.id)
+      assert [tweet] = Resources.list_following_tweets(tweet1.creator)
+      assert tweet == tweet2
     end
 
     test "get_tweet/1 returns the tweet with given id" do
@@ -36,9 +40,9 @@ defmodule Twitter.ResourcesTest do
       {:ok, user} = Accounts.create_user(%{name: "username"})
 
       assert {:ok, %Tweet{} = tweet} =
-               Resources.create_tweet(Map.merge(@valid_attrs, %{creator_id: user.id}))
+               Resources.create_tweet(%{message: "message", creator_id: user.id})
 
-      assert tweet.message == "some message"
+      assert tweet.message == "message"
     end
 
     test "create_tweet/1 with invalid data returns error changeset" do

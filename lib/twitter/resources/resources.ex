@@ -4,6 +4,7 @@ defmodule Twitter.Resources do
   """
 
   import Ecto.Query, warn: false
+  alias Twitter.Accounts.Follower
   alias Twitter.Accounts.User
   alias Twitter.Repo
   alias Twitter.Resources.Tweet
@@ -22,6 +23,28 @@ defmodule Twitter.Resources do
       from t in Tweet,
         inner_join: u in User,
         on: u.id == t.creator_id,
+        select_merge: %{creator: u}
+
+    Repo.all(query)
+  end
+
+  @doc """
+  Returns the list of tweets that the user follow.
+
+  ## Examples
+
+      iex> list_tweets()
+      [%Tweet{}, ...]
+
+  """
+  def list_following_tweets(%User{} = user) do
+    query =
+      from t in Tweet,
+        inner_join: f in Follower,
+        on: f.user_id == ^user.id,
+        inner_join: u in User,
+        on: u.id == t.creator_id,
+        where: f.follower_id == t.creator_id,
         select_merge: %{creator: u}
 
     Repo.all(query)

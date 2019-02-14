@@ -13,7 +13,7 @@ defmodule TwitterWeb.FollowerControllerTest do
     response =
       conn
       |> post(Routes.follower_path(conn, :create), payload)
-      |> json_response(200)
+      |> json_response(201)
 
     current_user = Plug.current_resource(conn)
     followers = Accounts.followers(current_user)

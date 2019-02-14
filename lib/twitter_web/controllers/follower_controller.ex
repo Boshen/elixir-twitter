@@ -16,6 +16,7 @@ defmodule TwitterWeb.FollowerController do
 
     with {:ok, follower} <- Accounts.follow_user(current_user, follower_id) do
       conn
+      |> put_status(:created)
       |> json(follower)
     end
   end

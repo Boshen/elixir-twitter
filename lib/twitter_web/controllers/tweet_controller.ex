@@ -7,7 +7,9 @@ defmodule TwitterWeb.TweetController do
   action_fallback TwitterWeb.FallbackController
 
   def index(conn, _params) do
-    conn |> json(Resources.list_tweets())
+    user = Plug.current_resource(conn)
+    tweets = Resources.list_following_tweets(user)
+    conn |> json(tweets)
   end
 
   def show(conn, params) do
