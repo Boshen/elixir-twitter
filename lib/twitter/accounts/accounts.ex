@@ -7,6 +7,7 @@ defmodule Twitter.Accounts do
   alias Twitter.Repo
 
   alias Twitter.Accounts.User
+  alias Twitter.Accounts.Follower
 
   @doc """
   Returns the list of users.
@@ -117,5 +118,42 @@ defmodule Twitter.Accounts do
       user ->
         {:ok, user}
     end
+  end
+
+  @doc """
+    Follow a user
+  """
+  def follow_user(%User{} = user, follower_id) do
+    %Follower{}
+    |> Follower.changeset(%{
+      user_id: user.id,
+      follower_id: follower_id
+    })
+    |> Repo.insert()
+  end
+
+  @doc """
+    Unfollow a user
+  """
+  def unfollow_user(%User{} = user, follower_id) do
+    query =
+      from f in Follower,
+        where: f.user_id == ^user.id and f.follower_id == ^follower_id
+
+    Repo.delete_all(query)
+  end
+
+  @doc """
+    Returns all the followers for a given user
+  """
+  def followers(%User{} = user) do
+    query =
+      from f in Follower,
+        where: f.user_id == ^user.id,
+        inner_join: u in User,
+        on: u.id == f.follower_id,
+        select: u
+
+    Repo.all(query)
   end
 end

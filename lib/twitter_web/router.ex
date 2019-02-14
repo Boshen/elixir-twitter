@@ -30,9 +30,10 @@ defmodule TwitterWeb.Router do
   scope "/api", TwitterWeb do
     pipe_through [:api, :auth, :ensure_auth]
 
+    get "/auth", SessionController, :auth
     resources "/tweet", TweetController, except: [:new, :edit]
     resources "/user", UserController, except: [:edit]
-    get "/auth", SessionController, :auth
+    resources "/follower", FollowerController, only: [:index, :create, :delete]
   end
 
   scope "/", TwitterWeb do

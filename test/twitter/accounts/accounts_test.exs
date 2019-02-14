@@ -68,5 +68,34 @@ defmodule Twitter.AccountsTest do
       user = user_fixture()
       assert %Ecto.Changeset{} = Accounts.change_user(user)
     end
+
+    test "follow_user/2 follows a user" do
+      {:ok, user} = Accounts.create_user(%{name: "User 1"})
+      {:ok, follower} = Accounts.create_user(%{name: "User 2"})
+      {:ok, result} = Accounts.follow_user(user, follower.id)
+      assert result.user_id == user.id
+      assert result.follower_id == follower.id
+    end
+
+    test "follow_user/2 cannot follow a user twice" do
+      {:ok, user} = Accounts.create_user(%{name: "User 1"})
+      {:ok, follower} = Accounts.create_user(%{name: "User 2"})
+      assert {:ok, _reason} = Accounts.follow_user(user, follower.id)
+    end
+
+    test "unfollow_user/2 unfollows a user" do
+      {:ok, user} = Accounts.create_user(%{name: "User 1"})
+      {:ok, follower} = Accounts.create_user(%{name: "User 2"})
+      {:ok, _result} = Accounts.follow_user(user, follower.id)
+      assert {1, nil} = Accounts.unfollow_user(user, follower.id)
+    end
+
+    test "follows/1 returns all followers for a given user" do
+      {:ok, user} = Accounts.create_user(%{name: "User 1"})
+      {:ok, follower} = Accounts.create_user(%{name: "User 2"})
+      {:ok, _result} = Accounts.follow_user(user, follower.id)
+      followers = Accounts.followers(user)
+      assert followers == [follower]
+    end
   end
 end
