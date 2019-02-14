@@ -1,7 +1,7 @@
 defmodule TwitterWeb.FallbackController do
   use TwitterWeb, :controller
-  alias TwitterWeb.ErrorHelpers
   alias Ecto.Changeset
+  alias TwitterWeb.ErrorHelpers
 
   def call(conn, {:error, nil}) do
     conn

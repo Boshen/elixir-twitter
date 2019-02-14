@@ -1,12 +1,11 @@
 defmodule Twitter.ResourcesTest do
   use Twitter.DataCase
 
-  alias Twitter.Resources
   alias Twitter.Accounts
+  alias Twitter.Resources
+  alias Twitter.Resources.Tweet
 
   describe "tweets" do
-    alias Twitter.Resources.Tweet
-
     @valid_attrs %{message: "some message"}
     @update_attrs %{message: "some updated message"}
     @invalid_attrs %{message: nil}

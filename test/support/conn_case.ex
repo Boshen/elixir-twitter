@@ -14,6 +14,8 @@ defmodule TwitterWeb.ConnCase do
   """
 
   use ExUnit.CaseTemplate
+  alias Ecto.Adapters.SQL.Sandbox
+  alias Twitter.Accounts.Guardian
 
   using do
     quote do
@@ -27,17 +29,17 @@ defmodule TwitterWeb.ConnCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Twitter.Repo)
+    :ok = Sandbox.checkout(Twitter.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Twitter.Repo, {:shared, self()})
+      Sandbox.mode(Twitter.Repo, {:shared, self()})
     end
 
     user = Twitter.Repo.get_by(Twitter.Accounts.User, name: "Superuser")
 
     conn =
       Phoenix.ConnTest.build_conn()
-      |> Twitter.Accounts.Guardian.Plug.sign_in(user)
+      |> Guardian.Plug.sign_in(user)
 
     {:ok, conn: conn}
   end

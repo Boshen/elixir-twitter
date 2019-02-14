@@ -4,10 +4,9 @@ defmodule Twitter.Resources do
   """
 
   import Ecto.Query, warn: false
-  alias Twitter.Repo
-
-  alias Twitter.Resources.Tweet
   alias Twitter.Accounts.User
+  alias Twitter.Repo
+  alias Twitter.Resources.Tweet
 
   @doc """
   Returns the list of tweets.

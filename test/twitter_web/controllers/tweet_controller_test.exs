@@ -1,7 +1,7 @@
 defmodule TwitterWeb.TweetControllerTest do
   use TwitterWeb.ConnCase
-  alias Twitter.Resources
   alias Twitter.Accounts
+  alias Twitter.Resources
 
   def create_tweet(params) do
     {:ok, user} = Accounts.create_user(%{name: "username"})
