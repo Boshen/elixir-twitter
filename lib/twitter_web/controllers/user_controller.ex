@@ -47,10 +47,14 @@ defmodule TwitterWeb.UserController do
   def count(conn, _params) do
     current_user = Plug.current_resource(conn)
     tweets = Resources.count_user_tweets(current_user)
+    following = Accounts.count_following(current_user)
+    followers = Accounts.count_followers(current_user)
 
     conn
     |> json(%{
-      tweets: tweets
+      tweets: tweets,
+      following: following,
+      followers: followers
     })
   end
 end

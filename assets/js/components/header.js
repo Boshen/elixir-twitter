@@ -22,9 +22,10 @@ export const Header = () => {
   const countBlock = counts && (
     <ul>
       <li>Tweets {counts.tweets}</li>
+      <li>Following {counts.following}</li>
+      <li>Followers {counts.followers}</li>
     </ul>
   )
-
 
   return (
     <header>

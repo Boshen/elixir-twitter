@@ -105,8 +105,12 @@ defmodule TwitterWeb.UserControllerTest do
   end
 
   test "GET /api/counts", %{conn: conn} do
-    conn
-    |> post(Routes.tweet_path(conn, :create), %{message: "message"})
+    conn |> post(Routes.tweet_path(conn, :create), %{message: "message"})
+
+    follower =
+      conn |> post(Routes.user_path(conn, :create), %{name: "name"}) |> json_response(201)
+
+    conn |> post(Routes.follower_path(conn, :create), %{follower_id: follower["id"]})
 
     response =
       conn
@@ -114,7 +118,9 @@ defmodule TwitterWeb.UserControllerTest do
       |> json_response(200)
 
     expected = %{
-      "tweets" => 1
+      "tweets" => 1,
+      "following" => 1,
+      "followers" => 0
     }
 
     assert response == expected

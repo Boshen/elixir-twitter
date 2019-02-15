@@ -143,17 +143,35 @@ defmodule Twitter.Accounts do
     Repo.delete_all(query)
   end
 
+  defp followers_query(user) do
+    from f in Follower,
+      where: f.user_id == ^user.id
+  end
+
   @doc """
     Returns all the followers for a given user
   """
   def followers(%User{} = user) do
     query =
-      from f in Follower,
-        where: f.user_id == ^user.id,
+      from f in followers_query(user),
         inner_join: u in User,
         on: u.id == f.follower_id,
         select: u
 
     Repo.all(query)
+  end
+
+  def count_following(%User{} = user) do
+    user
+    |> followers_query()
+    |> Repo.aggregate(:count, :id)
+  end
+
+  def count_followers(%User{} = user) do
+    query =
+      from f in Follower,
+        where: f.follower_id == ^user.id
+
+    Repo.aggregate(query, :count, :id)
   end
 end

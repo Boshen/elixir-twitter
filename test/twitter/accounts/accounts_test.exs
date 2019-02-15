@@ -97,5 +97,27 @@ defmodule Twitter.AccountsTest do
       followers = Accounts.followers(user)
       assert followers == [follower]
     end
+
+    test "count_following/1 returns following count for a given user" do
+      {:ok, user} = Accounts.create_user(%{name: "User 1"})
+      {:ok, follower1} = Accounts.create_user(%{name: "User 2"})
+      {:ok, follower2} = Accounts.create_user(%{name: "User 3"})
+      {:ok, _result} = Accounts.follow_user(user, follower1.id)
+      {:ok, _result} = Accounts.follow_user(user, follower2.id)
+      assert Accounts.count_following(user) == 2
+      assert Accounts.count_following(follower1) == 0
+      assert Accounts.count_following(follower2) == 0
+    end
+
+    test "count_followers/1 returns follower count for a given user" do
+      {:ok, user} = Accounts.create_user(%{name: "User 1"})
+      {:ok, follower1} = Accounts.create_user(%{name: "User 2"})
+      {:ok, follower2} = Accounts.create_user(%{name: "User 3"})
+      {:ok, _result} = Accounts.follow_user(user, follower1.id)
+      {:ok, _result} = Accounts.follow_user(user, follower2.id)
+      assert Accounts.count_followers(user) == 0
+      assert Accounts.count_followers(follower1) == 1
+      assert Accounts.count_followers(follower2) == 1
+    end
   end
 end
