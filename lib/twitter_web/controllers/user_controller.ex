@@ -44,15 +44,6 @@ defmodule TwitterWeb.UserController do
     end
   end
 
-  def follow(conn, %{"follower_id" => follower_id}) do
-    current_user = Plug.current_resource(conn)
-
-    with {:ok, follower} = Accounts.follow_user(current_user, follower_id) do
-      conn
-      |> json(follower)
-    end
-  end
-
   def count(conn, _params) do
     current_user = Plug.current_resource(conn)
     tweets = Resources.count_user_tweets(current_user)
