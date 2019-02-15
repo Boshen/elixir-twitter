@@ -33,6 +33,7 @@ defmodule TwitterWeb.Router do
     get "/auth", SessionController, :auth
     resources "/tweet", TweetController, except: [:new, :edit]
     resources "/user", UserController, except: [:edit]
+    get "/count", UserController, :count
     resources "/follower", FollowerController, only: [:index, :create, :delete]
   end
 

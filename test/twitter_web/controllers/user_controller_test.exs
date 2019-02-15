@@ -103,4 +103,20 @@ defmodule TwitterWeb.UserControllerTest do
 
     assert response
   end
+
+  test "GET /api/counts", %{conn: conn} do
+    conn
+    |> post(Routes.tweet_path(conn, :create), %{message: "message"})
+
+    response =
+      conn
+      |> get(Routes.user_path(conn, :count))
+      |> json_response(200)
+
+    expected = %{
+      "tweets" => 1
+    }
+
+    assert response == expected
+  end
 end

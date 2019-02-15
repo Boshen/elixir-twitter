@@ -3,6 +3,7 @@ defmodule TwitterWeb.UserController do
   alias Twitter.Accounts
   alias Twitter.Accounts.Guardian.Plug
   alias Twitter.Accounts.User
+  alias Twitter.Resources
 
   action_fallback TwitterWeb.FallbackController
 
@@ -50,5 +51,15 @@ defmodule TwitterWeb.UserController do
       conn
       |> json(follower)
     end
+  end
+
+  def count(conn, _params) do
+    current_user = Plug.current_resource(conn)
+    tweets = Resources.count_user_tweets(current_user)
+
+    conn
+    |> json(%{
+      tweets: tweets
+    })
   end
 end

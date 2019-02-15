@@ -17,9 +17,18 @@ defmodule Twitter.ResourcesTest do
       Map.merge(tweet, %{creator: user})
     end
 
-    test "list_tweets/0 returns all tweets" do
-      tweet = tweet_fixture()
-      assert Resources.list_tweets() == [tweet]
+    test "list_user_tweets/1 returns all tweets for a given user" do
+      tweet1 = tweet_fixture("message 1", "user 1")
+      tweet_fixture("message 2", "user 2")
+      tweet_fixture("message 3", "user 3")
+      assert Resources.list_user_tweets(tweet1.creator) == [tweet1]
+    end
+
+    test "count_user_tweets/1 returns count" do
+      tweet1 = tweet_fixture("message 1", "user 1")
+      tweet_fixture("message 2", "user 2")
+      tweet_fixture("message 3", "user 3")
+      assert Resources.count_user_tweets(tweet1.creator) == 1
     end
 
     test "list_following_tweets/1 returns all tweets that the user follow" do

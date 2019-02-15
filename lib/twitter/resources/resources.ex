@@ -9,45 +9,41 @@ defmodule Twitter.Resources do
   alias Twitter.Repo
   alias Twitter.Resources.Tweet
 
-  @doc """
-  Returns the list of tweets.
-
-  ## Examples
-
-      iex> list_tweets()
-      [%Tweet{}, ...]
-
-  """
-  def list_tweets do
-    query =
-      from t in Tweet,
-        inner_join: u in User,
-        on: u.id == t.creator_id,
-        select_merge: %{creator: u}
-
-    Repo.all(query)
+  def list_user_tweets(%User{} = user) do
+    user
+    |> user_tweets_query()
+    |> add_creator_to_query()
+    |> Repo.all()
   end
 
-  @doc """
-  Returns the list of tweets that the user follow.
+  def count_user_tweets(%User{} = user) do
+    user
+    |> user_tweets_query()
+    |> Repo.aggregate(:count, :id)
+  end
 
-  ## Examples
+  defp user_tweets_query(%User{} = user) do
+    from t in Tweet,
+      where: t.creator_id == ^user.id
+  end
 
-      iex> list_tweets()
-      [%Tweet{}, ...]
+  defp add_creator_to_query(query) do
+    from t in query,
+      join: u in User,
+      on: u.id == t.creator_id,
+      select_merge: %{creator: u}
+  end
 
-  """
   def list_following_tweets(%User{} = user) do
     query =
       from t in Tweet,
         inner_join: f in Follower,
         on: f.user_id == ^user.id,
-        inner_join: u in User,
-        on: u.id == t.creator_id,
-        where: f.follower_id == t.creator_id,
-        select_merge: %{creator: u}
+        where: f.follower_id == t.creator_id
 
-    Repo.all(query)
+    query
+    |> add_creator_to_query()
+    |> Repo.all()
   end
 
   @doc """
