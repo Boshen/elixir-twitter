@@ -9,17 +9,11 @@ defmodule Twitter.Accounts do
   alias Twitter.Accounts.Follower
   alias Twitter.Accounts.User
 
-  @doc """
-  Returns the list of users.
-
-  ## Examples
-
-      iex> list_users()
-      [%User{}, ...]
-
-  """
-  def list_users do
-    Repo.all(User)
+  def list_users(page \\ 1) do
+    User
+    |> order_by(asc: :inserted_at)
+    |> Repo.paginate(page: page)
+    |> Map.from_struct()
   end
 
   @doc """

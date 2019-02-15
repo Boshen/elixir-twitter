@@ -34,30 +34,32 @@ defmodule TwitterWeb.UserControllerTest do
   end
 
   test "GET /api/user", %{conn: conn} do
-    users = [
-      %{name: "Username 1"},
-      %{name: "Username 2"}
-    ]
+    current_user = conn |> get(Routes.user_path(conn, :show, 1)) |> json_response(200)
 
-    [
-      {:ok, user1},
-      {:ok, user2}
-    ] = Enum.map(users, &Accounts.create_user(&1))
+    user1 =
+      conn
+      |> post(Routes.user_path(conn, :create), %{name: "Username 1"})
+      |> json_response(201)
+
+    user2 =
+      conn
+      |> post(Routes.user_path(conn, :create), %{name: "Username 2"})
+      |> json_response(201)
 
     response =
       conn
       |> get(Routes.user_path(conn, :index))
       |> json_response(200)
 
-    assert Enum.count(response) > 0
+    expected = %{
+      "entries" => [current_user, user1, user2],
+      "page_number" => 1,
+      "page_size" => 20,
+      "total_entries" => 3,
+      "total_pages" => 1
+    }
 
-    expected = [
-      %{"name" => "Superuser"},
-      %{"name" => user1.name},
-      %{"name" => user2.name}
-    ]
-
-    assert Enum.map(response, &Map.take(&1, ["name"])) == expected
+    assert response == expected
   end
 
   test "PUT /api/user/:id", %{conn: conn} do

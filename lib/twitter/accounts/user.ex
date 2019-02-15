@@ -4,10 +4,13 @@ defmodule Twitter.Accounts.User do
   """
   use Ecto.Schema
   import Ecto.Changeset
+  alias Twitter.Resources.Tweet
 
   @derive {Jason.Encoder, only: [:id, :name, :inserted_at, :updated_at]}
   schema "users" do
     field :name, :string
+
+    has_many :tweets, Tweet, foreign_key: :creator_id
 
     timestamps()
   end

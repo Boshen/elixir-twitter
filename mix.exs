@@ -37,7 +37,7 @@ defmodule Twitter.MixProject do
   def application do
     [
       mod: {Twitter.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :scrivener_ecto]
     ]
   end
 
@@ -60,6 +60,7 @@ defmodule Twitter.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:guardian, "~> 1.0"},
+      {:scrivener_ecto, "~> 2.0"},
       {:plug_cowboy, "~> 2.0"},
       {:mix_test_watch, "~> 0.8", only: :dev, runtime: false},
       {:excoveralls, "~> 0.10", only: :test},

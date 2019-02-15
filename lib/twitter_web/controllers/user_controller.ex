@@ -7,8 +7,9 @@ defmodule TwitterWeb.UserController do
 
   action_fallback TwitterWeb.FallbackController
 
-  def index(conn, _params) do
-    conn |> json(Accounts.list_users())
+  def index(conn, params) do
+    page = Map.get(params, "page", 1)
+    conn |> json(Accounts.list_users(page))
   end
 
   def show(conn, params) do

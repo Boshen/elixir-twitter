@@ -2,13 +2,14 @@ import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 
 export const UsersPage = () => {
-  const [users, setUsers] = useState([])
+  const [users, setUsers] = useState({entries: []})
   const [followers, setFollowers] = useState([])
+  const [page, setPage] = useState(1)
   const inputEl = useRef(null)
 
   useEffect(() => {
-    axios.get('/api/user').then((res) => setUsers(res.data))
-  }, [])
+    axios.get('/api/user?page=' + page).then((res) => setUsers(res.data))
+  }, [page])
 
   useEffect(() => {
     axios.get('/api/follower').then((res) => setFollowers(res.data))
@@ -59,13 +60,16 @@ export const UsersPage = () => {
         </button>
       </form>
       <ul>
-        {users.map((u) => (
+        {users.entries.map((u) => (
           <li key={u.id}>
             <input defaultValue={u.name} onChange={onEdit(u.id)}/>
             <button onClick={onFollow(u.id)}>follow</button>
             <button onClick={onDelete(u.id)}>delete</button>
           </li>
         ))}
+        <button onClick={() => setPage(page - 1)}>Prev</button>
+        <button onClick={() => setPage(page + 1)}>Next</button>
+        <br />
         {followers.map((u) => (
           <li key={u.id}>
             { u.name }
