@@ -13,10 +13,9 @@ export const Header = () => {
   }, [])
 
   const onLogout = () => {
-    axios.post('/api/logout')
-      .then(() => {
-        updateUser('error')
-      })
+    axios.post('/api/logout').then(() => {
+      updateUser('error')
+    })
   }
 
   const countBlock = counts && (
@@ -30,11 +29,15 @@ export const Header = () => {
   return (
     <header>
       <ul>
-        <li><Link to='/users'>Users</Link></li>
-        <li><Link to='/tweets'>Tweets</Link></li>
+        <li>
+          <Link to='/users'>Users</Link>
+        </li>
+        <li>
+          <Link to='/tweets'>Tweets</Link>
+        </li>
       </ul>
-      { user.name }
-      { countBlock }
+      {user.name}
+      {countBlock}
       <button onClick={onLogout}>Logout</button>
     </header>
   )

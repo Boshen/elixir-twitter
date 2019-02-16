@@ -8,14 +8,17 @@ export const Auth = ({ children }) => {
   const [user, updateUser] = useState(userContext)
 
   useEffect(() => {
-    axios.get('/api/auth')
+    axios
+      .get('/api/auth')
       .then((res) => updateUser(res.data))
       .catch(() => updateUser('error'))
   }, [])
 
-  return !!user && (
-    <UserContext.Provider value={{user, updateUser}}>
-      { user == 'error' ? <LoginPage /> : children }
-    </UserContext.Provider>
+  return (
+    !!user && (
+      <UserContext.Provider value={{ user, updateUser }}>
+        {user == 'error' ? <LoginPage /> : children}
+      </UserContext.Provider>
+    )
   )
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 
 export const UsersPage = () => {
-  const [users, setUsers] = useState({entries: []})
+  const [users, setUsers] = useState({ entries: [] })
   const [followers, setFollowers] = useState([])
   const [page, setPage] = useState(1)
   const inputEl = useRef(null)
@@ -17,30 +17,30 @@ export const UsersPage = () => {
 
   const onSubmit = (e) => {
     e.preventDefault()
-    axios.post('/api/user', {
-      name: inputEl.current.value
-    })
+    axios
+      .post('/api/user', {
+        name: inputEl.current.value,
+      })
       .then((response) => {
         setTweets(tweets.concat(response.data))
       })
   }
 
   const onDelete = (id) => () => {
-    axios.delete('/api/user/' + id)
-      .then(() => {
-        setUsers(users.filter((u) => u.id !== id))
-      })
+    axios.delete('/api/user/' + id).then(() => {
+      setUsers(users.filter((u) => u.id !== id))
+    })
   }
 
   const onEdit = (id) => (e) => {
     axios.patch('/api/user/' + id, {
-      name: e.currentTarget.value
+      name: e.currentTarget.value,
     })
   }
 
   const onFollow = (id) => () => {
     axios.post('/api/follower/', {
-      follower_id: id
+      follower_id: id,
     })
   }
 
@@ -51,18 +51,13 @@ export const UsersPage = () => {
   return (
     <div>
       <form onSubmit={onSubmit}>
-        <input
-          ref={inputEl}
-          placeholder="username"
-        />
-        <button>
-          Submit
-        </button>
+        <input ref={inputEl} placeholder='username' />
+        <button>Submit</button>
       </form>
       <ul>
         {users.entries.map((u) => (
           <li key={u.id}>
-            <input defaultValue={u.name} onChange={onEdit(u.id)}/>
+            <input defaultValue={u.name} onChange={onEdit(u.id)} />
             <button onClick={onFollow(u.id)}>follow</button>
             <button onClick={onDelete(u.id)}>delete</button>
           </li>
@@ -72,7 +67,7 @@ export const UsersPage = () => {
         <br />
         {followers.map((u) => (
           <li key={u.id}>
-            { u.name }
+            {u.name}
             <button onClick={onUnfollow(u.id)}>unfollow</button>
           </li>
         ))}
