@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 
 export const TweetsPage = () => {
-  const [tweets, setTweets] = useState([])
+  const [tweets, setTweets] = useState({entries: []})
   const inputEl = useRef(null)
 
   useEffect(() => {
@@ -32,6 +32,13 @@ export const TweetsPage = () => {
     })
   }
 
+  const onLoadMore = () => {
+    axios.get('/api/tweet?after=' + tweets.after).then((res) => {
+      res.data.entries = tweets.entries.concat(res.data.entries)
+      setTweets(res.data)
+    })
+  }
+
   return (
     <div>
       <form onSubmit={onSubmit}>
@@ -44,7 +51,7 @@ export const TweetsPage = () => {
         </button>
       </form>
       <ul>
-        {tweets.map((t) => (
+        {tweets.entries.map((t) => (
           <li key={t.id}>
             <input defaultValue={t.message} onChange={onEdit(t.id)}/>
             <span>by {t.creator.name}</span>
@@ -52,6 +59,7 @@ export const TweetsPage = () => {
           </li>
         ))}
       </ul>
+      { tweets.after && <button onClick={onLoadMore}>Load More</button> }
     </div>
   )
 }

@@ -57,12 +57,19 @@ defmodule TwitterWeb.TweetControllerTest do
     |> post(Routes.follower_path(conn, :create), %{follower_id: follower_tweet["creator"]["id"]})
     |> json_response(201)
 
-    tweets =
+    result =
       conn
       |> get(Routes.tweet_path(conn, :index))
       |> json_response(200)
 
-    assert tweets == [follower_tweet]
+    assert result == %{
+             "entries" => [follower_tweet],
+             "after" => nil,
+             "before" => nil,
+             "limit" => 5,
+             "total_count" => nil,
+             "total_count_cap_exceeded" => nil
+           }
   end
 
   test "PUT /api/tweet/:id", %{conn: conn} do

@@ -24,6 +24,7 @@ defmodule Twitter.Resources do
 
   defp user_tweets_query(%User{} = user) do
     from t in Tweet,
+      order_by: [asc: :inserted_at],
       where: t.creator_id == ^user.id
   end
 
@@ -34,16 +35,25 @@ defmodule Twitter.Resources do
       select_merge: %{creator: u}
   end
 
-  def list_following_tweets(%User{} = user) do
+  def list_following_tweets(%User{} = user, cursor_after \\ nil) do
     query =
       from t in Tweet,
         inner_join: f in Follower,
         on: f.user_id == ^user.id,
+        order_by: [asc: t.inserted_at, asc: t.id],
         where: f.follower_id == t.creator_id
 
-    query
-    |> add_creator_to_query()
-    |> Repo.all()
+    paginator =
+      query
+      |> add_creator_to_query()
+      |> Repo.paginate_cursor(
+        include_total_count: true,
+        after: cursor_after,
+        cursor_fields: [:inserted_at, :id],
+        limit: 5
+      )
+
+    Map.merge(%{entries: paginator.entries}, Map.from_struct(paginator.metadata))
   end
 
   @doc """

@@ -35,8 +35,16 @@ defmodule Twitter.ResourcesTest do
       tweet1 = tweet_fixture("message 1", "user 1")
       tweet2 = tweet_fixture("message 2", "user 2")
       {:ok, _result} = Accounts.follow_user(tweet1.creator, tweet2.creator.id)
-      assert [tweet] = Resources.list_following_tweets(tweet1.creator)
-      assert tweet == tweet2
+      result = Resources.list_following_tweets(tweet1.creator)
+
+      assert result == %{
+               entries: [tweet2],
+               after: nil,
+               before: nil,
+               limit: 5,
+               total_count: 1,
+               total_count_cap_exceeded: false
+             }
     end
 
     test "get_tweet/1 returns the tweet with given id" do

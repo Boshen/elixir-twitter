@@ -61,6 +61,7 @@ defmodule Twitter.MixProject do
       {:jason, "~> 1.0"},
       {:guardian, "~> 1.0"},
       {:scrivener_ecto, "~> 2.0"},
+      {:paginator, "~> 0.6"},
       {:plug_cowboy, "~> 2.0"},
       {:mix_test_watch, "~> 0.8", only: :dev, runtime: false},
       {:excoveralls, "~> 0.10", only: :test},
