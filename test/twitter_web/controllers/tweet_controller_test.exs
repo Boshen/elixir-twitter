@@ -67,8 +67,8 @@ defmodule TwitterWeb.TweetControllerTest do
              "after" => nil,
              "before" => nil,
              "limit" => 5,
-             "total_count" => nil,
-             "total_count_cap_exceeded" => nil
+             "total_count" => 1,
+             "total_count_cap_exceeded" => false
            }
   end
 

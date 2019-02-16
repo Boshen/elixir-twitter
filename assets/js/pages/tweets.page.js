@@ -1,12 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 
+import { Tweet } from '../components/tweet.component'
+
 export const TweetsPage = () => {
   const [tweets, setTweets] = useState({entries: []})
   const inputEl = useRef(null)
 
   useEffect(() => {
-    axios.get('/api/tweet').then((res) => setTweets(res.data))
+    axios.get('/api/tweet').then((res) => {
+      res.data.entries.reverse()
+      setTweets(res.data)
+    })
   }, [])
 
   const onSubmit = (e) => {
@@ -14,15 +19,16 @@ export const TweetsPage = () => {
     axios.post('/api/tweet', {
       message: inputEl.current.value,
     })
-      .then((response) => {
-        setTweets(tweets.concat(response.data))
+      .then((res) => {
+        tweets.entries.unshift(res.data)
+        setTweets({ ...tweets, entries: tweets.entries })
       })
   }
 
   const onDelete = (id) => () => {
     axios.delete('/api/tweet/' + id)
       .then(() => {
-        setTweets(tweets.filter((t) => t.id !== id))
+        setTweets({ ...tweets, entries:  tweets.entries.filter((t) => t.id !== id) })
       })
   }
 
@@ -34,7 +40,8 @@ export const TweetsPage = () => {
 
   const onLoadMore = () => {
     axios.get('/api/tweet?after=' + tweets.after).then((res) => {
-      res.data.entries = tweets.entries.concat(res.data.entries)
+      res.data.entries.reverse()
+      res.data.entries = res.data.entries.concat(tweets.entries)
       setTweets(res.data)
     })
   }
@@ -50,16 +57,12 @@ export const TweetsPage = () => {
           Submit
         </button>
       </form>
-      <ul>
-        {tweets.entries.map((t) => (
-          <li key={t.id}>
-            <input defaultValue={t.message} onChange={onEdit(t.id)}/>
-            <span>by {t.creator.name}</span>
-            <button onClick={onDelete(t.id)}>delete</button>
-          </li>
-        ))}
-      </ul>
       { tweets.after && <button onClick={onLoadMore}>Load More</button> }
+      <div>
+        {tweets.entries.map((t) =>
+          <Tweet key={t.id} tweet={t} onEdit={onEdit} onDelete={onDelete} />)
+        }
+      </div>
     </div>
   )
 }

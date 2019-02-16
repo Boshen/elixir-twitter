@@ -47,10 +47,9 @@ defmodule Twitter.Resources do
       query
       |> add_creator_to_query()
       |> Repo.paginate_cursor(
-        include_total_count: true,
         after: cursor_after,
         cursor_fields: [:inserted_at, :id],
-        limit: 5
+        sort_direction: :asc
       )
 
     Map.merge(%{entries: paginator.entries}, Map.from_struct(paginator.metadata))
