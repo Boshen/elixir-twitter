@@ -7,7 +7,8 @@ defmodule Twitter.Repo do
       limit: 5,
       maximum_limit: 100,
       include_total_count: true,
-      total_count_primary_key_field: :id
+      total_count_primary_key_field: :id,
+      total_count_limit: :infinity
     ]
 
     opts = Keyword.merge(defaults, opts)
