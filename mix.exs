@@ -27,6 +27,11 @@ defmodule Twitter.MixProject do
       docs: [
         main: "Twitter",
         extras: ["README.md"]
+      ],
+      dialyzer: [
+        plt_add_deps: :transitive,
+        plt_file: {:no_warn, "priv/plts/dialyzer.plt"},
+        ignore_warnings: ".dialyzer_ignore.exs"
       ]
     ]
   end
@@ -65,8 +70,9 @@ defmodule Twitter.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:mix_test_watch, "~> 0.8", only: :dev, runtime: false},
       {:excoveralls, "~> 0.10", only: :test},
-      {:ex_doc, "~> 0.19", only: [:test, :dev], runtime: false},
-      {:credo, "~> 1.0.0", only: [:dev, :test], runtime: false}
+      {:ex_doc, "~> 0.19", only: [:dev, :test], runtime: false},
+      {:credo, "~> 1.0.0", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.0.0-rc.4", only: [:dev, :test], runtime: false}
     ]
   end
 

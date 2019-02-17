@@ -42,6 +42,7 @@ jobs:
           keys:
             - v1-build-cache-{{ .Branch }}
             - v1-build-cache
+
       - run: mix do deps.get, compile
       - save_cache:
           key: v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
@@ -58,9 +59,19 @@ jobs:
       - save_cache:
           key: v1-build-cache
           paths: "_build"
-      - run:
-          name: Wait for DB
-          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      - run: mix dialyzer --halt-exit-status
+      - save_cache:
+          key: v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+          paths: "priv/plts"
+      - save_cache:
+          key: v1-mix-cache-{{ .Branch }}
+          paths: "priv/plts"
+      - save_cache:
+          key: v1-mix-cache
+          paths: "priv/plts"
+
+      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: mix coveralls.json
       - run: bash <(curl -s https://codecov.io/bash)
       - run: mix credo list
