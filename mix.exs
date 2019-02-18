@@ -68,6 +68,7 @@ defmodule Twitter.MixProject do
       {:scrivener_ecto, "~> 2.0"},
       {:paginator, "~> 0.6"},
       {:plug_cowboy, "~> 2.0"},
+      {:faker, "~> 0.12", only: [:dev, :test]},
       {:mix_test_watch, "~> 0.8", only: :dev, runtime: false},
       {:excoveralls, "~> 0.10", only: :test},
       {:ex_doc, "~> 0.19", only: [:dev, :test], runtime: false},
@@ -86,7 +87,8 @@ defmodule Twitter.MixProject do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate", "run priv/repo/seeds.exs", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate", "run priv/repo/seeds.exs", "test"],
+      generate: "run ./generate/generate.exs"
     ]
   end
 end
