@@ -13,6 +13,7 @@ defmodule Twitter.Resources.Tweet do
     field :creator, :map, virtual: true
     belongs_to :user, User, foreign_key: :creator_id
 
+    @timestamps_opts [type: :utc_datetime_usec]
     timestamps()
   end
 

@@ -12,6 +12,7 @@ defmodule Twitter.Accounts.User do
 
     has_many :tweets, Tweet, foreign_key: :creator_id
 
+    @timestamps_opts [type: :utc_datetime_usec]
     timestamps()
   end
 

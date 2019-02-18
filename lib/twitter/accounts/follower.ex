@@ -10,6 +10,7 @@ defmodule Twitter.Accounts.Follower do
     field :user_id, :id
     field :follower_id, :id
 
+    @timestamps_opts [type: :utc_datetime_usec]
     timestamps()
   end
 
