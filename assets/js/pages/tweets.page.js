@@ -9,7 +9,6 @@ export const TweetsPage = () => {
 
   useEffect(() => {
     axios.get('/api/tweet').then((res) => {
-      res.data.entries.reverse()
       setTweets(res.data)
     })
   }, [])
@@ -21,7 +20,7 @@ export const TweetsPage = () => {
         message: inputEl.current.value,
       })
       .then((res) => {
-        tweets.entries.unshift(res.data)
+        tweets.entries.push(res.data)
         setTweets({ ...tweets, entries: tweets.entries })
       })
   }
@@ -40,8 +39,7 @@ export const TweetsPage = () => {
 
   const onLoadMore = () => {
     axios.get('/api/tweet?after=' + tweets.after).then((res) => {
-      res.data.entries.reverse()
-      res.data.entries = res.data.entries.concat(tweets.entries)
+      res.data.entries = tweets.entries.concat(res.data.entries)
       setTweets(res.data)
     })
   }
@@ -52,12 +50,12 @@ export const TweetsPage = () => {
         <input ref={inputEl} placeholder='message' />
         <button>Submit</button>
       </form>
-      {tweets.after && <button onClick={onLoadMore}>Load More</button>}
       <div>
         {tweets.entries.map((t) => (
           <Tweet key={t.id} tweet={t} onEdit={onEdit} onDelete={onDelete} />
         ))}
       </div>
+      {tweets.after && <button onClick={onLoadMore}>Load More</button>}
     </div>
   )
 }

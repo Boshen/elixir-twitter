@@ -66,7 +66,7 @@ defmodule TwitterWeb.TweetControllerTest do
              "entries" => [follower_tweet],
              "after" => nil,
              "before" => nil,
-             "limit" => 5,
+             "limit" => 20,
              "total_count" => 1,
              "total_count_cap_exceeded" => false
            }

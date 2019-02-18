@@ -4,7 +4,7 @@ defmodule Twitter.Repo do
 
   def paginate_cursor(queryable, opts \\ [], repo_opts \\ []) do
     defaults = [
-      limit: 5,
+      limit: 20,
       maximum_limit: 100,
       include_total_count: true,
       total_count_primary_key_field: :id,

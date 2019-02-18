@@ -41,7 +41,7 @@ defmodule Twitter.ResourcesTest do
                entries: [tweet2],
                after: nil,
                before: nil,
-               limit: 5,
+               limit: 20,
                total_count: 1,
                total_count_cap_exceeded: false
              }
