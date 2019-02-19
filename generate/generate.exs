@@ -16,40 +16,37 @@ end
 
 # create users
 followers =
-  Enum.map(1..followers_count, fn _i ->
-    %{
-      name: Faker.Name.name(),
-      inserted_at: utc_datetime_usec.(),
-      updated_at: utc_datetime_usec.()
-    }
-  end)
+  for _i <- 1..followers_count,
+      do: %{
+        name: Faker.Name.name(),
+        inserted_at: utc_datetime_usec.(),
+        updated_at: utc_datetime_usec.()
+      }
 
 {_count, followers} = Repo.insert_all(User, followers, returning: [:id], on_conflict: :nothing)
 
 # follow users
 followings =
-  Enum.map(followers, fn follower ->
-    %{
-      user_id: me.id,
-      follower_id: follower.id,
-      inserted_at: utc_datetime_usec.(),
-      updated_at: utc_datetime_usec.()
-    }
-  end)
+  for f <- followers,
+      do: %{
+        user_id: me.id,
+        follower_id: f.id,
+        inserted_at: utc_datetime_usec.(),
+        updated_at: utc_datetime_usec.()
+      }
 
 Repo.insert_all(Follower, followings, returning: [:id])
 
 # each follower creates tweets
 Enum.each(followers, fn follower ->
   tweets =
-    Enum.map(1..tweets_count, fn _i ->
-      %{
-        message: Faker.Lorem.sentence(),
-        creator_id: follower.id,
-        inserted_at: utc_datetime_usec.(),
-        updated_at: utc_datetime_usec.()
-      }
-    end)
+    for _i <- 1..tweets_count,
+        do: %{
+          message: Faker.Lorem.sentence(),
+          creator_id: follower.id,
+          inserted_at: utc_datetime_usec.(),
+          updated_at: utc_datetime_usec.()
+        }
 
   Repo.insert_all(Tweet, tweets)
 end)
