@@ -24,7 +24,7 @@ followers =
     }
   end)
 
-{_count, followers} = Repo.insert_all(User, followers, returning: [:id])
+{_count, followers} = Repo.insert_all(User, followers, returning: [:id], on_conflict: :nothing)
 
 # follow users
 followings =
