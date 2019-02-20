@@ -45,3 +45,5 @@ node_modules
 
 /priv/plts/*.plt
 /priv/plts/*.plt.hash
+
+*.pyc
