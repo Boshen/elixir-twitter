@@ -26,6 +26,7 @@
   "skip_files": [
     "test",
     "lib/twitter/application.ex",
+    "lib/twitter/telemetry.ex",
     "lib/twitter_web.ex"
   ]
 }
