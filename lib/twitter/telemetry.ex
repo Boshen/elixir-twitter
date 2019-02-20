@@ -1,4 +1,6 @@
 defmodule Twitter.Telemetry do
+  @moduledoc false
+
   require Logger
 
   def handle_event([:twitter, :repo, :query], time, metadata, _config) do
