@@ -1,4 +1,4 @@
-defmodule Twitter.Accounts.Guardian do
+defmodule TwitterWeb.Guardian do
   @moduledoc """
   The Accounts Guardian.
   """

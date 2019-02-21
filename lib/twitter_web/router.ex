@@ -14,7 +14,7 @@ defmodule TwitterWeb.Router do
   end
 
   pipeline :auth do
-    plug Twitter.Accounts.Pipeline
+    plug TwitterWeb.Guardian.Pipeline
   end
 
   pipeline :ensure_auth do

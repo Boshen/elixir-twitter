@@ -1,11 +1,11 @@
 defmodule TwitterWeb.SessionControllerTest do
   use TwitterWeb.ConnCase
-  alias Twitter.Accounts.Guardian
+  alias TwitterWeb.Guardian.Plug
 
   test "POST /api/logout", %{conn: conn} do
     conn = post(conn, Routes.session_path(conn, :logout))
 
-    user = Guardian.Plug.current_resource(conn)
+    user = Plug.current_resource(conn)
 
     assert user == nil
     assert json_response(conn, 200)
@@ -19,7 +19,7 @@ defmodule TwitterWeb.SessionControllerTest do
       |> post(Routes.session_path(conn, :logout))
       |> post(Routes.session_path(conn, :login), user)
 
-    user = Guardian.Plug.current_resource(conn)
+    user = Plug.current_resource(conn)
 
     assert user.name == "Superuser"
     assert json_response(conn, 200)

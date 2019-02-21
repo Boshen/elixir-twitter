@@ -1,6 +1,6 @@
-defmodule Twitter.Accounts.ErrorHandler do
+defmodule TwitterWeb.Guardian.ErrorHandler do
   @moduledoc """
-  The Accounts ErrorHandler.
+  The Guardian ErrorHandler.
   """
 
   import Plug.Conn

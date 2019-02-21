@@ -15,7 +15,7 @@ defmodule TwitterWeb.ConnCase do
 
   use ExUnit.CaseTemplate
   alias Ecto.Adapters.SQL.Sandbox
-  alias Twitter.Accounts.Guardian
+  alias TwitterWeb.Guardian.Plug
 
   using do
     quote do
@@ -39,7 +39,7 @@ defmodule TwitterWeb.ConnCase do
 
     conn =
       Phoenix.ConnTest.build_conn()
-      |> Guardian.Plug.sign_in(user)
+      |> Plug.sign_in(user)
 
     {:ok, conn: conn}
   end

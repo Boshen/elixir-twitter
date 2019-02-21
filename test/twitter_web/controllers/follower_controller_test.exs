@@ -1,7 +1,7 @@
 defmodule TwitterWeb.FollowerControllerTest do
   use TwitterWeb.ConnCase
   alias Twitter.Accounts
-  alias Twitter.Accounts.Guardian.Plug
+  alias TwitterWeb.Guardian.Plug
 
   test "POST /api/follow", %{conn: conn} do
     {:ok, follower} = Accounts.create_user(%{name: "Username 1"})

@@ -1,7 +1,7 @@
 defmodule TwitterWeb.TweetControllerTest do
   use TwitterWeb.ConnCase
   alias Twitter.Accounts
-  alias Twitter.Accounts.Guardian.Plug
+  alias TwitterWeb.Guardian.Plug
 
   def create_tweet(conn) do
     tweet = %{message: "message"}

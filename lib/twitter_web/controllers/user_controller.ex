@@ -1,9 +1,9 @@
 defmodule TwitterWeb.UserController do
   use TwitterWeb, :controller
   alias Twitter.Accounts
-  alias Twitter.Accounts.Guardian.Plug
   alias Twitter.Accounts.User
   alias Twitter.Resources
+  alias TwitterWeb.Guardian.Plug
 
   action_fallback TwitterWeb.FallbackController
 
