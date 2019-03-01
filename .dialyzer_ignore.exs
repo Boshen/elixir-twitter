@@ -1,1 +1,4 @@
-[~r/ExUnit/]
+[
+  ~r/ExUnit/,
+  ~r/Mix.Task/
+]
