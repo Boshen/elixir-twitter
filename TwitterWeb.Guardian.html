@@ -5,9 +5,9 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.19.3">
-    <title>Twitter.Accounts.Guardian — elixir-twitter v0.1.0</title>
+    <title>TwitterWeb.Guardian — elixir-twitter v0.1.0</title>
     <link rel="stylesheet" href="dist/html-399e30b9b028e3059575.css" />
-    <script src="dist/sidebar_items-156e02704e.js"></script>
+    <script src="dist/sidebar_items-ead81e39c2.js"></script>
     <script async src="dist/html-399e30b9b028e3059575.js"></script>
     
   </head>
@@ -47,6 +47,7 @@ elixir-twitter      </h1>
       <li><a id="modules-list" href="#full-list">Modules</a></li>
 
 
+      <li><a id="tasks-list" href="#full-list">Mix Tasks</a></li>
   </ul>
   <div class="gradient"></div>
   <ul id="full-list" class="sidebar-fullList"></ul>
@@ -59,8 +60,8 @@ elixir-twitter      </h1>
 
       <h1>
         <small class="visible-xs">elixir-twitter v0.1.0</small>
-Twitter.Accounts.Guardian        
-          <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/accounts/guardian.ex#L1" title="View Source" class="view-source" rel="help">
+TwitterWeb.Guardian        
+          <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter_web/guardian/plug.ex#L1" title="View Source" class="view-source" rel="help">
             <span class="icon-code" aria-hidden="true"></span>
             <span class="sr-only">View Source</span>
           </a>
@@ -257,7 +258,7 @@ Functions          </h1>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature">after_encode_and_sign(r, claims, token, _)</span>
-      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/accounts/guardian.ex#L5" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter_web/guardian/plug.ex#L5" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -275,7 +276,7 @@ and signed.</p>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature">after_sign_in(conn, r, t, c, o)</span>
-      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/accounts/guardian.ex#L5" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter_web/guardian/plug.ex#L5" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -297,7 +298,7 @@ and signed.</p>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature">before_sign_out(conn, location, opts)</span>
-      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/accounts/guardian.ex#L5" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter_web/guardian/plug.ex#L5" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -314,7 +315,7 @@ and signed.</p>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature">build_claims(c, _, _)</span>
-      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/accounts/guardian.ex#L5" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter_web/guardian/plug.ex#L5" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -333,7 +334,7 @@ This is useful to hook into the encoding lifecycle.</p>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature">config()</span>
-      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/accounts/guardian.ex#L5" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter_web/guardian/plug.ex#L5" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -355,7 +356,7 @@ This is useful to hook into the encoding lifecycle.</p>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature">config(key, default \\ nil)</span>
-      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/accounts/guardian.ex#L5" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter_web/guardian/plug.ex#L5" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -380,7 +381,7 @@ This is useful to hook into the encoding lifecycle.</p>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature">decode_and_verify(token, claims_to_check \\ %{}, opts \\ [])</span>
-      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/accounts/guardian.ex#L5" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter_web/guardian/plug.ex#L5" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -406,7 +407,7 @@ module.</p>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature">default_token_type()</span>
-      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/accounts/guardian.ex#L5" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter_web/guardian/plug.ex#L5" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -430,7 +431,7 @@ module.</p>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature">encode_and_sign(resource, claims \\ %{}, opts \\ [])</span>
-      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/accounts/guardian.ex#L5" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter_web/guardian/plug.ex#L5" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -454,7 +455,7 @@ See <a href="https://hexdocs.pm/guardian/1.2.1/Guardian.html#encode_and_sign/4">
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature">exchange(token, from_type, to_type, opts \\ [])</span>
-      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/accounts/guardian.ex#L5" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter_web/guardian/plug.ex#L5" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -483,7 +484,7 @@ See <a href="https://hexdocs.pm/guardian/1.2.1/Guardian.html#encode_and_sign/4">
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature">on_exchange(old_stuff, new_stuff, options)</span>
-      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/accounts/guardian.ex#L5" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter_web/guardian/plug.ex#L5" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -500,7 +501,7 @@ See <a href="https://hexdocs.pm/guardian/1.2.1/Guardian.html#encode_and_sign/4">
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature">on_refresh(old_stuff, new_stuff, options)</span>
-      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/accounts/guardian.ex#L5" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter_web/guardian/plug.ex#L5" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -517,7 +518,7 @@ See <a href="https://hexdocs.pm/guardian/1.2.1/Guardian.html#encode_and_sign/4">
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature">on_revoke(claims, token, options)</span>
-      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/accounts/guardian.ex#L5" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter_web/guardian/plug.ex#L5" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -534,7 +535,7 @@ See <a href="https://hexdocs.pm/guardian/1.2.1/Guardian.html#encode_and_sign/4">
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature">on_verify(claims, token, options)</span>
-      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/accounts/guardian.ex#L5" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter_web/guardian/plug.ex#L5" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -551,7 +552,7 @@ See <a href="https://hexdocs.pm/guardian/1.2.1/Guardian.html#encode_and_sign/4">
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature">peek(token)</span>
-      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/accounts/guardian.ex#L5" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter_web/guardian/plug.ex#L5" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -576,7 +577,7 @@ of either the claims or the signature.</p>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature">refresh(old_token, opts \\ [])</span>
-      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/accounts/guardian.ex#L5" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter_web/guardian/plug.ex#L5" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -600,7 +601,7 @@ of either the claims or the signature.</p>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature">resource_from_claims(map)</span>
-      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/accounts/guardian.ex#L12" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter_web/guardian/plug.ex#L12" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -622,7 +623,7 @@ of either the claims or the signature.</p>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature">resource_from_token(token, claims_to_check \\ %{}, opts \\ [])</span>
-      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/accounts/guardian.ex#L5" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter_web/guardian/plug.ex#L5" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -650,7 +651,7 @@ of either the claims or the signature.</p>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature">revoke(token, opts \\ [])</span>
-      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/accounts/guardian.ex#L5" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter_web/guardian/plug.ex#L5" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -672,7 +673,7 @@ of either the claims or the signature.</p>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature">subject_for_token(user, claims)</span>
-      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/accounts/guardian.ex#L8" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter_web/guardian/plug.ex#L8" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>
@@ -691,7 +692,7 @@ the resource</p>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature">verify_claims(claims, options)</span>
-      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter/accounts/guardian.ex#L5" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/boshen/elixir-twitter/blob/master/lib/twitter_web/guardian/plug.ex#L5" class="view-source" rel="help" title="View Source">
        <span class="icon-code" aria-hidden="true"></span>
        <span class="sr-only">View Source</span>
      </a>

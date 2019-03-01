@@ -7,7 +7,7 @@
     <meta name="generator" content="ExDoc v0.19.3">
     <title>Twitter.DataCase — elixir-twitter v0.1.0</title>
     <link rel="stylesheet" href="dist/html-399e30b9b028e3059575.css" />
-    <script src="dist/sidebar_items-156e02704e.js"></script>
+    <script src="dist/sidebar_items-ead81e39c2.js"></script>
     <script async src="dist/html-399e30b9b028e3059575.js"></script>
     
   </head>
@@ -47,6 +47,7 @@ elixir-twitter      </h1>
       <li><a id="modules-list" href="#full-list">Modules</a></li>
 
 
+      <li><a id="tasks-list" href="#full-list">Mix Tasks</a></li>
   </ul>
   <div class="gradient"></div>
   <ul id="full-list" class="sidebar-fullList"></ul>
@@ -122,9 +123,9 @@ Functions          </h1>
           </div>
   <section class="docstring">
 <p>A helper that transforms changeset errors into a map of messages.</p>
-<pre><code class="nohighlight makeup elixir"><span class="n">assert</span><span class="w"> </span><span class="p" data-group-id="0884169632-1">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="n">changeset</span><span class="p" data-group-id="0884169632-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Accounts</span><span class="o">.</span><span class="n">create_user</span><span class="p" data-group-id="0884169632-2">(</span><span class="p" data-group-id="0884169632-3">%{</span><span class="ss">password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;short&quot;</span><span class="p" data-group-id="0884169632-3">}</span><span class="p" data-group-id="0884169632-2">)</span><span class="w">
-</span><span class="n">assert</span><span class="w"> </span><span class="s">&quot;password is too short&quot;</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">errors_on</span><span class="p" data-group-id="0884169632-4">(</span><span class="n">changeset</span><span class="p" data-group-id="0884169632-4">)</span><span class="o">.</span><span class="n">password</span><span class="w">
-</span><span class="n">assert</span><span class="w"> </span><span class="p" data-group-id="0884169632-5">%{</span><span class="ss">password</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0884169632-6">[</span><span class="s">&quot;password is too short&quot;</span><span class="p" data-group-id="0884169632-6">]</span><span class="p" data-group-id="0884169632-5">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">errors_on</span><span class="p" data-group-id="0884169632-7">(</span><span class="n">changeset</span><span class="p" data-group-id="0884169632-7">)</span></code></pre>
+<pre><code class="nohighlight makeup elixir"><span class="n">assert</span><span class="w"> </span><span class="p" data-group-id="1201725714-1">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="n">changeset</span><span class="p" data-group-id="1201725714-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Accounts</span><span class="o">.</span><span class="n">create_user</span><span class="p" data-group-id="1201725714-2">(</span><span class="p" data-group-id="1201725714-3">%{</span><span class="ss">password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;short&quot;</span><span class="p" data-group-id="1201725714-3">}</span><span class="p" data-group-id="1201725714-2">)</span><span class="w">
+</span><span class="n">assert</span><span class="w"> </span><span class="s">&quot;password is too short&quot;</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">errors_on</span><span class="p" data-group-id="1201725714-4">(</span><span class="n">changeset</span><span class="p" data-group-id="1201725714-4">)</span><span class="o">.</span><span class="n">password</span><span class="w">
+</span><span class="n">assert</span><span class="w"> </span><span class="p" data-group-id="1201725714-5">%{</span><span class="ss">password</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1201725714-6">[</span><span class="s">&quot;password is too short&quot;</span><span class="p" data-group-id="1201725714-6">]</span><span class="p" data-group-id="1201725714-5">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">errors_on</span><span class="p" data-group-id="1201725714-7">(</span><span class="n">changeset</span><span class="p" data-group-id="1201725714-7">)</span></code></pre>
   </section>
 </section>
           </div>
